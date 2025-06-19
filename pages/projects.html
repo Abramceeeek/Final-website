@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - Abdurakhmonbek Fayzullaev</title>
+  <meta name="description" content="Portfolio projects by Abdurakhmonbek Fayzullaev - Full Stack Developer">
+  <link rel="stylesheet" href="../css/main.css">
+  <style>
+    .filter-btn {
+      transition: all 0.3s ease;
+      border: 2px solid #00ff00;
+      background: transparent;
+      color: #00ff00;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+      background: #00ff00;
+      color: #000;
+      box-shadow: 0 0 10px #00ff00;
+    }
+    
+    .project-card {
+      transition: all 0.3s ease;
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .project-card.hidden {
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+    
+    .tech-tag {
+      display: inline-block;
+      background: rgba(0, 255, 0, 0.1);
+      color: #00ff00;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      margin: 0.1rem;
+      border: 1px solid rgba(0, 255, 0, 0.3);
+    }
+    
+    .project-status {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    
+    .status-completed {
+      background: rgba(0, 255, 0, 0.2);
+      color: #00ff00;
+      border: 1px solid #00ff00;
+    }
+    
+    .status-in-progress {
+      background: rgba(255, 255, 0, 0.2);
+      color: #ffff00;
+      border: 1px solid #ffff00;
+    }
+    
+    .project-links {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .project-links .btn {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <a href="#navigation" class="skip-link">Skip to navigation</a>
+  <div class="page-container">
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="../index.html" class="logo">ABDURAKHMONBEK</a>
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="page-content" style="margin-top: 100px;">
+      <header class="page-header">
+        <h1 class="page-title">MY PROJECTS</h1>
+        <p class="page-subtitle">Showcasing Solutions & Innovations</p>
+      </header>
+
+      <div class="grid-container grid-2" id="projects-grid">
+        <!-- Bloomberg Trading Challenge -->
+        <div class="card project-card">
+          <h3 class="card-title">📈 Bloomberg Global Trading Challenge</h3>
+          <div class="card-content">
+            <div class="project-status status-completed">✅ Completed</div>
+            <p><strong>Description:</strong> Global team-based trading simulation using real-time Bloomberg data to test investment decision-making under pressure.</p>
+
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">Bloomberg Terminal</span>
+              <span class="tech-tag">Risk Management</span>
+              <span class="tech-tag">Team Leadership</span>
+            </div>
+
+            <ul style="margin-left: 1.5rem;">
+              <li>Achieved 12% portfolio return in 4 weeks</li>
+              <li>Ranked top 20% out of 1,000+ global teams</li>
+              <li>Applied dynamic asset allocation strategies</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Capital Requirement Modeling (Academic) -->
+        <div class="card project-card">
+          <h3 class="card-title">🏦 Capital Requirement Modeling</h3>
+          <div class="card-content">
+            <div class="project-status status-in-progress">🚧 In Progress</div>
+            <p><strong>Description:</strong> Dissertation project investigating how volatility models and hedging strategies impact capital requirements in stochastic markets.</p>
+
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">Stochastic Modeling</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Risk Capital</span>
+            </div>
+
+            <ul style="margin-left: 1.5rem;">
+              <li>Monte Carlo simulations and PDE-based hedge error analysis</li>
+              <li>Evaluation against Solvency II and other capital frameworks</li>
+              <li>Integration of GARCH/GBM models for volatility structure</li>
+            </ul>
+
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Financial Dashboard (Python) -->
+        <div class="card project-card">
+          <h3 class="card-title">📊 Financial Dashboard</h3>
+          <div class="card-content">
+            <div class="project-status status-completed">✅ Completed</div>
+            <p><strong>Description:</strong> Python-based financial analytics dashboard to track portfolio returns, risk metrics, and volatility indicators.</p>
+
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Pandas</span>
+              <span class="tech-tag">Matplotlib</span>
+              <span class="tech-tag">Risk Metrics</span>
+            </div>
+
+            <ul style="margin-left: 1.5rem;">
+              <li>Custom Sharpe, VaR, and drawdown calculations</li>
+              <li>Volatility cone visualizations</li>
+              <li>Asset allocation over time with export to Excel</li>
+            </ul>
+
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Student Placement Tracker -->
+        <div class="card project-card">
+          <h3 class="card-title">📁 Student Placement Tracker</h3>
+          <div class="card-content">
+            <div class="project-status status-completed">✅ Completed</div>
+            <p><strong>Description:</strong> A simple Excel-based system to manage and analyze international student applications and admissions success.</p>
+
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">Excel</span>
+              <span class="tech-tag">Data Cleaning</span>
+              <span class="tech-tag">Dashboards</span>
+            </div>
+
+            <ul style="margin-left: 1.5rem;">
+              <li>Tracked 200+ cases with outcome statistics</li>
+              <li>Created visual dashboards for client success rates</li>
+              <li>Used by education consultancy for operational insights</li>
+            </ul>
+
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Portfolio Website -->
+        <div class="card project-card">
+          <h3 class="card-title">💼 Personal Portfolio Website</h3>
+          <div class="card-content">
+            <div class="project-status status-completed">✅ Completed</div>
+            <p><strong>Description:</strong> Interactive, Matrix-themed personal website showcasing my background in finance, data science, and analytics.</p>
+
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">HTML</span>
+              <span class="tech-tag">CSS</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Canvas API</span>
+            </div>
+
+            <ul style="margin-left: 1.5rem;">
+              <li>Dynamic navigation and section animations</li>
+              <li>Matrix rain canvas and data-inspired layout</li>
+              <li>Mobile responsive with clear CTA and CV download</li>
+            </ul>
+
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+
+          </div>
+        </div>
+
+        <!-- E-Commerce Platform -->
+        <div class="card project-card" data-categories="web,fullstack">
+          <h3 class="card-title">🛒 E-Commerce Platform</h3>
+          <div class="card-content">
+            <div class="project-status status-completed">⏳ Starting Soon</div>
+            <p><strong>Description:</strong> A full-featured e-commerce platform with user authentication, product management, shopping cart, and payment integration.</p>
+            
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Express</span>
+              <span class="tech-tag">MongoDB</span>
+              <span class="tech-tag">Stripe API</span>
+            </div>
+            
+            <p><strong>Features:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>User registration and authentication</li>
+              <li>Product catalog with search and filters</li>
+              <li>Shopping cart and checkout process</li>
+              <li>Admin dashboard for inventory management</li>
+              <li>Payment processing with Stripe</li>
+            </ul>
+            
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Task Management App -->
+        <div class="card project-card" data-categories="web,frontend">
+          <h3 class="card-title">📋 Task Management App</h3>
+          <div class="card-content">
+            <div class="project-status status-completed">⏳ Starting Soon</div>
+            <p><strong>Description:</strong> A responsive task management application with drag-and-drop functionality, real-time updates, and collaborative features.</p>
+            
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">Vue.js</span>
+              <span class="tech-tag">Vuex</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Tailwind CSS</span>
+            </div>
+            
+            <p><strong>Features:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Drag-and-drop task organization</li>
+              <li>Real-time collaboration</li>
+              <li>Due date and priority management</li>
+              <li>Progress tracking and analytics</li>
+              <li>Mobile-responsive design</li>
+            </ul>
+            
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card project-card">
+          <h3 class="card-title">📚 Risk Aggregation Simulator</h3>
+          <div class="card-content">
+            <div class="project-status status-starting-soon">⏳ Starting Soon</div>
+            <p><strong>Description:</strong> Simulating risk aggregation across portfolios using copulas and scenario-based modeling for regulatory stress testing.</p>
+        
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Copulas</span>
+              <span class="tech-tag">Actuarial Modeling</span>
+            </div>
+        
+            <ul style="margin-left: 1.5rem;">
+              <li>Planned model: Gaussian and t-copulas for dependency structure</li>
+              <li>Visualizing joint distributions and extreme outcomes</li>
+              <li>Benchmarking against empirical loss data</li>
+            </ul>
+
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+
+          </div>
+        </div>        
+
+        <!-- Weather Dashboard -->
+        <div class="card project-card" data-categories="web,frontend,api">
+          <h3 class="card-title">🌤️ Weather Dashboard</h3>
+          <div class="card-content">
+            <div class="project-status status-completed">⏳ Starting Soon</div>
+            <p><strong>Description:</strong> An interactive weather dashboard that provides current conditions, forecasts, and weather maps for multiple locations.</p>
+            
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">Chart.js</span>
+              <span class="tech-tag">OpenWeather API</span>
+              <span class="tech-tag">CSS Grid</span>
+            </div>
+            
+            <p><strong>Features:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Current weather conditions</li>
+              <li>7-day weather forecast</li>
+              <li>Interactive weather maps</li>
+              <li>Location search and favorites</li>
+              <li>Weather alerts and notifications</li>
+            </ul>
+            
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Chat Application -->
+        <div class="card project-card" data-categories="web,fullstack">
+          <h3 class="card-title">💬 Real-time Chat App</h3>
+          <div class="card-content">
+            <div class="project-status status-completed">⏳ Starting Soon</div>
+            <p><strong>Description:</strong> A real-time chat application with private messaging, group chats, file sharing, and emoji support.</p>
+            
+            <div style="margin: 1rem 0;">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Socket.io</span>
+              <span class="tech-tag">Node.js</span>
+              <span class="tech-tag">Redis</span>
+            </div>
+            
+            <p><strong>Features:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Real-time messaging</li>
+              <li>Private and group conversations</li>
+              <li>File and image sharing</li>
+              <li>Online status indicators</li>
+              <li>Message history and search</li>
+              <li>Emoji picker and reactions</li>
+            </ul>
+            
+            <div class="project-links">
+              <a href="coming-soon.html" class="btn">Live Demo</a>
+              <a href="coming-soon.html" class="btn">GitHub</a>\
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <section class="content-section">
+        <h2 class="section-title">What's Next?</h2>
+        <div class="section-content">
+      
+          <p>
+            I'm currently focused on deepening my expertise in financial modeling and enterprise risk management through my MSc dissertation. My next goal is to complete a practical simulation project on risk aggregation using stochastic models and copulas — applying these techniques in both insurance and investment contexts.
+          </p>
+      
+          <p style="margin-top: 1.5rem;">
+            I'm also seeking opportunities to apply my skills in real-world environments through internships, freelance roles, or part-time research collaborations. Whether it's contributing to quantitative research, building financial dashboards, or supporting decision-making through data — I'm ready to take on the next challenge.
+          </p>
+      
+          <p style="margin-top: 1.5rem;">
+            If you're working on something related to finance, data, or risk — let's talk. I'm open to conversations, collaborations, or just exchanging ideas.
+          </p>
+      
+          <div style="margin-top: 2rem; text-align: center;">
+            <a href="contact.html" class="btn btn-primary">📩 Let's Connect</a>
+            <a href="projects.html" class="btn" style="margin-left: 1rem;">🚀 Explore My Work</a>
+          </div>
+      
+        </div>
+      </section>      
+    </main>
+  </div>
+
+  <script>
+    // Project filtering functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const projectCards = document.querySelectorAll('.project-card');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          projectCards.forEach(card => {
+            const categories = card.getAttribute('data-categories').split(',');
+            
+            if (filter === 'all' || categories.includes(filter)) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+        });
+      });
+      
+      // Add hover effects to project cards
+      projectCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px)';
+          this.style.boxShadow = '0 10px 20px rgba(0, 255, 0, 0.1)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.boxShadow = 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
