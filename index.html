@@ -11,8 +11,6 @@
   <!-- Canonical URL -->
   <link rel="canonical" href="https://abdurakhmonbek.com/">
   
-  <!-- Base URL for relative links -->
-  <base href="https://abdurakhmonbek.com/">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -138,6 +136,12 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    .loading-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
     
     .loading-content {
@@ -168,7 +172,7 @@
       width: 100%;
       background: rgba(0, 0, 0, 0.9);
       backdrop-filter: blur(10px);
-      z-index: 1000;
+      z-index: 10000;
       padding: 1rem 0;
     }
     
@@ -292,10 +296,10 @@
       
       <div class="nav-menu" id="nav-menu">
         <a href="" class="nav-link">Home</a>
-        <a href="site/about/" class="nav-link">About</a>
-        <a href="site/skills-experience/" class="nav-link">Skills & Experience</a>
-        <a href="site/services/" class="nav-link">Services</a>
-        <a href="site/contact/" class="nav-link">Contact</a>
+        <a href="about/" class="nav-link">About</a>
+        <a href="skills-experience/" class="nav-link">Skills & Experience</a>
+        <a href="services/" class="nav-link">Services</a>
+        <a href="contact/" class="nav-link">Contact</a>
       </div>
       
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -413,7 +417,7 @@
 
   <!-- Floating CTA Button -->
   <div class="floating-cta" id="floating-cta">
-    <a href="site/contact/" class="btn btn-primary" aria-label="Book a consultation call">
+    <a href="contact/" class="btn btn-primary" aria-label="Book a consultation call">
       📞 Book a Call
     </a>
   </div>
