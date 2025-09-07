@@ -204,6 +204,44 @@
       color: var(--primary-color, #00ff88);
     }
     
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .hamburger-line {
+      width: 25px;
+      height: 3px;
+      background: var(--text-primary, #fff);
+      transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+      }
+      
+      .nav-menu.active {
+        display: flex;
+      }
+      
+      .nav-toggle {
+        display: flex;
+      }
+    }
+    
     /* Hide floating elements to reduce visual clutter */
     .hero-section .floating-elements,
     .hero-section .hero-visual {
@@ -245,7 +283,28 @@
   </script>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- Navigation -->
+  <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">
+        <span class="logo-text">ABDURAKHMONBEK</span>
+      </a>
+      
+      <div class="nav-menu" id="nav-menu">
+        <a href="" class="nav-link">Home</a>
+        <a href="site/about/" class="nav-link">About</a>
+        <a href="site/skills-experience/" class="nav-link">Skills & Experience</a>
+        <a href="site/services/" class="nav-link">Services</a>
+        <a href="site/contact/" class="nav-link">Contact</a>
+      </div>
+      
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
 
   <!-- Loading Screen -->
   <div class="loading-screen" id="loading-screen" role="status" aria-live="polite">
@@ -352,29 +411,6 @@
     </section>
   </main>
 
-  <!-- Navigation -->
-  <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Main navigation">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">
-        <span class="logo-text">ABDURAKHMONBEK</span>
-      </a>
-      
-      <div class="nav-menu" id="nav-menu">
-        <a href="" class="nav-link">Home</a>
-        <a href="site/about/" class="nav-link">About</a>
-        <a href="site/skills-experience/" class="nav-link">Skills & Experience</a>
-        <a href="site/services/" class="nav-link">Services</a>
-        <a href="site/contact/" class="nav-link">Contact</a>
-      </div>
-      
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-      </button>
-    </div>
-  </nav>
-
   <!-- Floating CTA Button -->
   <div class="floating-cta" id="floating-cta">
     <a href="site/contact/" class="btn btn-primary" aria-label="Book a consultation call">
@@ -383,6 +419,28 @@
   </div>
 
   <script>
+    // Mobile navigation toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const navToggle = document.getElementById('nav-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      
+      if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function() {
+          navMenu.classList.toggle('active');
+          const isExpanded = navMenu.classList.contains('active');
+          navToggle.setAttribute('aria-expanded', isExpanded);
+        });
+        
+        // Close menu when clicking on a link
+        navMenu.addEventListener('click', function(e) {
+          if (e.target.classList.contains('nav-link')) {
+            navMenu.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    });
+
     function trackEvent(eventName, eventData = {}) {
       // gtag('event', eventName, eventData);
       // plausible(eventName, { props: eventData });
