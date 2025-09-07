@@ -17,14 +17,12 @@
   <meta property="og:url" content="https://abdurakhmonbek.com/">
   <meta property="og:title" content="Abdurakhmonbek Fayzullaev - Full Stack Developer">
   <meta property="og:description" content="Professional portfolio showcasing expertise in web development and quantitative finance">
-  <meta property="og:image" content="https://abdurakhmonbek.com/assets/og-image.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://abdurakhmonbek.com/">
   <meta property="twitter:title" content="Abdurakhmonbek Fayzullaev - Full Stack Developer">
   <meta property="twitter:description" content="Professional portfolio showcasing expertise in web development and quantitative finance">
-  <meta property="twitter:image" content="https://abdurakhmonbek.com/assets/og-image.jpg">
 
   <!-- Preload critical resources -->
   <link rel="preload" href="css/main.css" as="style">
@@ -46,15 +44,15 @@
   <style>
     /* Critical styles for hero section */
     .hero-section {
-      min-height: 100vh;
+      height: 85vh;
+      max-height: 800px;
+      min-height: 600px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      background-image: url('assets/hero-bg.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      overflow: hidden;
     }
     
     .hero-section::before {
@@ -62,9 +60,13 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
+      right: 0;
+      bottom: 0;
+      background-image: url('assets/hero-bg.png');
+      background-size: auto 100%;
+      background-position: center;
+      background-repeat: repeat-x;
+      opacity: 0.3;
       z-index: 0;
     }
     
@@ -72,56 +74,84 @@
       text-align: center;
       z-index: 2;
       position: relative;
-      background: rgba(15, 15, 15, 0.7);
-      padding: 2rem;
-      border-radius: 1rem;
-      backdrop-filter: blur(10px);
+      background: rgba(10, 10, 10, 0.85);
+      padding: 2.5rem 2rem;
+      border-radius: 1.5rem;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 255, 136, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      max-width: 700px;
+      margin: 0 1rem;
     }
     
     .hero-title {
-      font-size: clamp(2rem, 5vw, 4rem);
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
       font-weight: 700;
       margin-bottom: 1rem;
+      line-height: 1.1;
       color: var(--primary-color, #00ff88);
     }
     
     .hero-subtitle {
-      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
       margin-bottom: 1rem;
       color: var(--text-secondary, #ccc);
     }
     
     .hero-description {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      margin-bottom: 2rem;
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      margin-bottom: 1.5rem;
       color: var(--text-primary, #fff);
+      opacity: 0.9;
     }
     
     .hero-actions {
       display: flex;
-      gap: 1rem;
+      gap: 1.2rem;
       justify-content: center;
       flex-wrap: wrap;
+      margin-top: 2rem;
     }
     
     .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      min-width: 180px;
+      min-height: 52px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
     }
     
     .btn-primary {
-      background: var(--primary-color, #00ff88);
+      background: linear-gradient(135deg, var(--primary-color, #00ff88), #00cc6a);
       color: #000;
+      font-weight: 700;
+      box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 255, 136, 0.4);
     }
     
     .btn-secondary {
-      background: transparent;
+      background: rgba(0, 255, 136, 0.1);
       color: var(--primary-color, #00ff88);
       border: 2px solid var(--primary-color, #00ff88);
+      backdrop-filter: blur(10px);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--primary-color, #00ff88);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
     }
     
     /* Loading screen critical styles */
@@ -225,6 +255,29 @@
     }
     
     @media (max-width: 768px) {
+      .hero-section {
+        height: 90vh;
+        min-height: 500px;
+        max-height: 700px;
+      }
+      
+      .hero-content {
+        padding: 2rem 1.5rem;
+        margin: 0 0.5rem;
+        max-width: 90%;
+      }
+      
+      .hero-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+      
       .nav-menu {
         display: none;
         position: absolute;
@@ -244,12 +297,16 @@
       .nav-toggle {
         display: flex;
       }
+    }"
+    
+    /* Optimize floating elements performance */
+    .hero-section .floating-elements {
+      opacity: 0.3;
+      pointer-events: none;
     }
     
-    /* Hide floating elements to reduce visual clutter */
-    .hero-section .floating-elements,
     .hero-section .hero-visual {
-      display: none;
+      opacity: 0.5;
     }
     
     /* Reduced motion support */
@@ -295,7 +352,7 @@
       </a>
       
       <div class="nav-menu" id="nav-menu">
-        <a href="" class="nav-link">Home</a>
+        <a href="/" class="nav-link">Home</a>
         <a href="about/" class="nav-link">About</a>
         <a href="skills-experience/" class="nav-link">Skills & Experience</a>
         <a href="services/" class="nav-link">Services</a>
@@ -351,12 +408,12 @@
         </div>
       </div>
       
-      <div class="hero-visual">
+      <div class="hero-visual" aria-hidden="true">
         <div class="floating-elements">
-          <div class="floating-element" data-speed="0.5">⚡</div>
-          <div class="floating-element" data-speed="0.8">🔢</div>
-          <div class="floating-element" data-speed="1.2">💻</div>
-          <div class="floating-element" data-speed="0.6">📊</div>
+          <div class="floating-element" data-speed="0.5" role="presentation">⚡</div>
+          <div class="floating-element" data-speed="0.8" role="presentation">🔢</div>
+          <div class="floating-element" data-speed="1.2" role="presentation">💻</div>
+          <div class="floating-element" data-speed="0.6" role="presentation">📊</div>
         </div>
       </div>
     </section>
@@ -376,10 +433,10 @@
             <h3>Services</h3>
             <p>What I can do for you</p>
           </a>
-          <a href="skills-experience/" class="quick-link-card">
-            <div class="card-icon">💼</div>
-            <h3>Portfolio</h3>
-            <p>View my skills and experience</p>
+          <a href="about/" class="quick-link-card">
+            <div class="card-icon">👨‍💻</div>
+            <h3>About Me</h3>
+            <p>Learn more about my background</p>
           </a>
         </div>
       </div>

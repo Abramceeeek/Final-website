@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('name-display')) {
       loadHomepageContent();
     }
+    
+    // Initialize floating elements after other critical features
+    setTimeout(initFloatingElements, 100);
   } catch (error) {
     console.error('Error during page initialization:', error);
   }
@@ -444,39 +447,9 @@ function setupHamburgerMenu() {
 }
 
 function loadHomepageContent() {
-  fetch('assets/content.json')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      const loadingEl = document.getElementById('loading-screen');
-      if (loadingEl && data.loadingMessage) {
-        const loadingText = loadingEl.querySelector('.loading-text h2');
-        if (loadingText) {
-          loadingText.textContent = data.loadingMessage;
-        }
-      }
-      
-      const nameDisplayEl = document.getElementById('name-display');
-      if (nameDisplayEl && Array.isArray(data.nameDisplay)) {
-        nameDisplayEl.innerHTML = data.nameDisplay.map(line => 
-          `<span class="title-line">${line}</span>`
-        ).join('');
-      }
-    })
-    .catch(err => {
-      console.error('Failed to load homepage content:', err);
-      const nameDisplayEl = document.getElementById('name-display');
-      if (nameDisplayEl) {
-        nameDisplayEl.innerHTML = `
-          <span class="title-line">ABDURAKHMONBEK</span>
-          <span class="title-line">FAYZULLAEV</span>
-        `;
-      }
-    });
+  // Hero content is already embedded in HTML, no need to fetch
+  // This function is kept for compatibility but does nothing
+  console.log('Homepage content loaded from HTML');
 }
 
 const utils = {
@@ -537,24 +510,37 @@ window.addEventListener('beforeunload', () => {
 function initFloatingElements() {
   const floatingElements = document.querySelectorAll('.floating-element');
   
+  // Check if user prefers reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+  
   floatingElements.forEach(element => {
     const speed = parseFloat(element.dataset.speed) || 1;
     let position = Math.random() * 100;
+    let animationId;
     
     function animate() {
-      position += speed * 0.1;
+      position += speed * 0.05; // Reduced speed for better performance
       if (position > 100) position = 0;
       
-      element.style.transform = `translateY(${Math.sin(position * 0.1) * 20}px) rotate(${position * 0.5}deg)`;
-      requestAnimationFrame(animate);
+      element.style.transform = `translateY(${Math.sin(position * 0.1) * 15}px) rotate(${position * 0.3}deg)`;
+      animationId = requestAnimationFrame(animate);
     }
     
-    animate();
+    // Only animate if element is in viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animate();
+        } else {
+          cancelAnimationFrame(animationId);
+        }
+      });
+    });
+    
+    observer.observe(element);
   });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initFloatingElements);
-} else {
-  initFloatingElements();
-}
+// Remove duplicate floating element initialization

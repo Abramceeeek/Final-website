@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(convert:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []
