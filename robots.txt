@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://abdurakhmonbek.com/sitemap.xml
+
+# Disallow old page structure
+Disallow: /pages/
+
+# Allow new clean URLs
+Allow: /about/
+Allow: /skills-experience/
+Allow: /services/
+Allow: /contact/

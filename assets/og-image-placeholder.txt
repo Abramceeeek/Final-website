@@ -1,0 +1,10 @@
+# OG Image Placeholder
+
+Create a 1200x630 pixel image with:
+- Your name: "Abdurakhmonbek Fayzullaev"
+- Your title: "Full Stack Developer & Quantitative Analyst"
+- Dark background with neon green accents
+- Professional design
+- Save as: og-image.jpg
+
+This image will be used for social media sharing (Facebook, Twitter, LinkedIn).
