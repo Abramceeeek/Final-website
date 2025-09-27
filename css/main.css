@@ -2006,22 +2006,211 @@ img {
   transform: scale(1);
 }
 
+/* ===== CV POLISHER SERVICE STYLES ===== */
+.service-highlight {
+  margin: var(--spacing-2xl) 0;
+  padding: var(--spacing-xl);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 2px solid var(--primary-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl), 0 0 30px rgba(0, 255, 136, 0.1);
+}
+
+.featured-service {
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+  border: 2px solid var(--primary-color);
+  box-shadow: var(--shadow-xl), 0 0 20px rgba(0, 255, 136, 0.15);
+}
+
+.featured-service .service-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.cv-polisher-details {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--border-color);
+}
+
+.cv-polisher-details h4 {
+  color: var(--primary-color);
+  font-size: 1.125rem;
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.process-list {
+  list-style: none;
+  counter-reset: step-counter;
+  margin: var(--spacing-md) 0;
+}
+
+.process-list li {
+  counter-increment: step-counter;
+  margin-bottom: var(--spacing-sm);
+  padding-left: var(--spacing-xl);
+  position: relative;
+  line-height: 1.6;
+}
+
+.process-list li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--primary-color);
+  color: var(--bg-primary);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.benefits-list {
+  list-style: none;
+  margin: var(--spacing-md) 0;
+}
+
+.benefits-list li {
+  margin-bottom: var(--spacing-sm);
+  padding-left: var(--spacing-sm);
+  position: relative;
+  line-height: 1.6;
+}
+
+.pricing-info {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-xl) 0;
+  text-align: center;
+}
+
+.price-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
+}
+
+.current-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.price-note {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.pricing-details {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.8;
+  margin-top: var(--spacing-md);
+}
+
+.service-cta {
+  text-align: center;
+  margin: var(--spacing-xl) 0;
+}
+
+.cta-note {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-sm);
+  font-style: italic;
+}
+
+.requirements-note {
+  background: var(--bg-primary);
+  border-left: 4px solid var(--warning-color);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-xl) 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.requirements-note h4 {
+  color: var(--warning-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.requirements-note ul {
+  list-style: disc;
+  margin-left: var(--spacing-lg);
+}
+
+.requirements-note li {
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-secondary);
+}
+
+.quality-guarantee {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 204, 106, 0.05) 100%);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+  text-align: center;
+}
+
+.guarantee-badge {
+  background: var(--primary-color);
+  color: var(--bg-primary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  display: inline-block;
+  margin-bottom: var(--spacing-md);
+  font-size: 0.875rem;
+}
+
+/* Responsive adjustments for CV polisher service */
+@media (max-width: 768px) {
+  .service-highlight {
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+  }
+
+  .featured-service .service-icon {
+    font-size: 2.5rem;
+  }
+
+  .current-price {
+    font-size: 1.75rem;
+  }
+
+  .price-display {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+}
+
 /* ===== PRINT STYLES ===== */
 @media print {
   body {
     background: white !important;
     color: black !important;
   }
-  
+
   .main-navigation,
   .loading-screen {
     display: none !important;
   }
-  
+
   .page-content {
     padding-top: 0 !important;
   }
-  
+
   .content-section {
     break-inside: avoid;
     border: 1px solid #ccc !important;
