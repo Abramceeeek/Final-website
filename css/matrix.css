@@ -1,0 +1,213 @@
+/* Matrix-specific styles for home page */
+html, body {
+    overflow: hidden;
+  }
+  
+  #main-canvas { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    display: block; 
+    z-index: 1; 
+    will-change: transform;
+  }
+  
+  .loading {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    color: #00ff00; 
+    font-size: 1.8rem; 
+    text-shadow: 0 0 15px #00ff00;
+    z-index: 5; 
+    animation: pulse 1.5s infinite; 
+    text-align: center;
+    user-select: none;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { 
+      opacity: 0.6; 
+      transform: translate(-50%, -50%) scale(1); 
+    }
+    50% { 
+      opacity: 1; 
+      transform: translate(-50%, -50%) scale(1.05); 
+    }
+  }
+  
+  @keyframes glitch {
+    0% { transform: translate(-50%, -50%); }
+    20% { transform: translate(-52%, -48%); }
+    40% { transform: translate(-48%, -52%); }
+    60% { transform: translate(-50%, -49%); }
+    80% { transform: translate(-49%, -51%); }
+    100% { transform: translate(-50%, -50%); }
+  }
+  
+  #name-display {
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 10; 
+    opacity: 0;
+    transition: opacity 1s ease; 
+    text-align: center;
+    user-select: none;
+  }
+  
+  #name-display.visible { 
+    opacity: 1; 
+  }
+  
+  #name-display.glitch { 
+    animation: glitch 0.5s ease-in-out; 
+  }
+  
+  .name-line {
+    font-size: 4rem; 
+    color: #fff; 
+    font-weight: bold;
+    text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+    margin: 0.5rem 0; 
+    letter-spacing: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .name-line:hover {
+    color: #00ff00;
+    text-shadow: 0 0 30px #00ff00, 0 0 60px #00ff00, 0 0 90px #00ff00;
+    transform: scale(1.02);
+  }
+  
+  #navigation {
+    position: absolute; 
+    top: 20%; 
+    left: 50%;
+    transform: translateX(-50%); 
+    z-index: 20;
+    opacity: 0; 
+    visibility: hidden; 
+    transition: all 1.5s ease;
+  }
+  
+  #navigation.visible { 
+    opacity: 1; 
+    visibility: visible; 
+  }
+  
+  .nav-menu {
+    display: flex; 
+    flex-direction: column; 
+    gap: 1.5rem;
+    background: rgba(0, 0, 0, 0.8); 
+    padding: 2rem 3rem;
+    border-radius: 15px; 
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+  }
+  
+  .nav-item {
+    padding: 1rem 2rem; 
+    font-size: 1.5rem; 
+    text-transform: uppercase;
+    border: 2px solid #00ff00; 
+    border-radius: 10px;
+    color: #00ff00; 
+    text-decoration: none;
+    transition: all 0.3s ease; 
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+    position: relative; 
+    overflow: hidden;
+  }
+  
+  .nav-item::before {
+    content: '';
+    position: absolute; 
+    top: 0; 
+    left: -100%;
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  .nav-item:hover::before {
+    left: 100%;
+  }
+  
+  .nav-item:hover {
+    background: rgba(0, 255, 0, 0.15);
+    color: #fff; 
+    text-shadow: 0 0 20px #00ff00;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+    transform: scale(1.05);
+    border-color: #33ff33;
+  }
+  
+  .nav-item:active {
+    transform: scale(0.98);
+  }
+  
+  /* Mobile responsiveness for Matrix home page */
+  @media (max-width: 768px) {
+    .name-line { 
+      font-size: 2.5rem; 
+      letter-spacing: 2px; 
+    }
+    
+    .nav-menu { 
+      padding: 1.5rem 2rem; 
+      gap: 1rem; 
+    }
+    
+    .nav-item { 
+      font-size: 1.2rem; 
+      padding: 0.8rem 1.5rem; 
+    }
+    
+    #navigation { 
+      top: 25%; 
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .name-line { 
+      font-size: 2rem; 
+    }
+    
+    .nav-item { 
+      font-size: 1rem; 
+      padding: 0.7rem 1rem; 
+    }
+    
+    .loading { 
+      font-size: 1.4rem; 
+    }
+  }
+  
+  /* Accessibility for Matrix page */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Focus styles for accessibility */
+  .nav-item:focus {
+    outline: 3px solid #00ff00;
+    outline-offset: 2px;
+  }
+  
+  /* Performance hint for Matrix elements */
+  .nav-menu, .name-line, .nav-item {
+    will-change: transform;
+  }

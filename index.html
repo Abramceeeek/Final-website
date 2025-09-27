@@ -3,329 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Abdurakhmonbek Fayzullaev - Full Stack Developer & Quantitative Analyst</title>
-  <meta name="description" content="Professional portfolio of Abdurakhmonbek Fayzullaev - Full Stack Developer specializing in quantitative finance, mathematical modeling, and modern web technologies">
-  <meta name="keywords" content="Full Stack Developer, Quantitative Analyst, Financial Modeling, Web Development, Python, JavaScript, React, Node.js">
+  <title>Abdurakhmonbek Fayzullaev - Financial & Quantitative Analyst</title>
+  <meta name="description" content="Professional portfolio of Abdurakhmonbek Fayzullaev - MSc student in Actuarial Science specializing in data analytics, financial modeling, and risk management">
+  <meta name="keywords" content="Actuarial Science, Data Analytics, Financial Modeling, Risk Management, Python, R, SQL, Statistical Analysis">
   <meta name="author" content="Abdurakhmonbek Fayzullaev">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://abdurakhmonbek.com/">
-  
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://abdurakhmonbek.com/">
-  <meta property="og:title" content="Abdurakhmonbek Fayzullaev - Full Stack Developer">
-  <meta property="og:description" content="Professional portfolio showcasing expertise in web development and quantitative finance">
+  <meta property="og:title" content="Abdurakhmonbek Fayzullaev - Financial & Quantitative Analyst">
+  <meta property="og:description" content="Professional portfolio showcasing expertise in quantitative finance and actuarial science">
+  <meta property="og:image" content="https://abdurakhmonbek.com/assets/og-image.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://abdurakhmonbek.com/">
-  <meta property="twitter:title" content="Abdurakhmonbek Fayzullaev - Full Stack Developer">
-  <meta property="twitter:description" content="Professional portfolio showcasing expertise in web development and quantitative finance">
+  <meta property="twitter:title" content="Abdurakhmonbek Fayzullaev - Financial & Quantitative Analyst">
+  <meta property="twitter:description" content="Professional portfolio showcasing expertise in quantitative finance and actuarial science">
+  <meta property="twitter:image" content="https://abdurakhmonbek.com/assets/og-image.jpg">
 
   <!-- Preload critical resources -->
   <link rel="preload" href="css/main.css" as="style">
   <link rel="preload" href="js/main.js" as="script">
-  <link rel="preload" href="assets/hero-bg.png" as="image">
-  
-  <!-- Font preloading -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/main.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="css/main.css"></noscript>
+  <link rel="stylesheet" href="css/main.css">
   <link rel="icon" type="image/png" href="assets/favicon.png">
-
-  <!-- Critical CSS for above-the-fold content -->
-  <style>
-    /* Critical styles for hero section */
-    .hero-section {
-      height: 85vh;
-      max-height: 800px;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-      overflow: hidden;
-    }
-    
-    .hero-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: url('assets/hero-bg.png');
-      background-size: auto 100%;
-      background-position: center;
-      background-repeat: repeat-x;
-      opacity: 0.3;
-      z-index: 0;
-    }
-    
-    .hero-content {
-      text-align: center;
-      z-index: 2;
-      position: relative;
-      background: rgba(10, 10, 10, 0.85);
-      padding: 2.5rem 2rem;
-      border-radius: 1.5rem;
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(0, 255, 136, 0.1);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      max-width: 700px;
-      margin: 0 1rem;
-    }
-    
-    .hero-title {
-      font-size: clamp(1.8rem, 4vw, 3.2rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.1;
-      color: var(--primary-color, #00ff88);
-    }
-    
-    .hero-subtitle {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      margin-bottom: 1rem;
-      color: var(--text-secondary, #ccc);
-    }
-    
-    .hero-description {
-      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
-      margin-bottom: 1.5rem;
-      color: var(--text-primary, #fff);
-      opacity: 0.9;
-    }
-    
-    .hero-actions {
-      display: flex;
-      gap: 1.2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-    
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem 2rem;
-      border-radius: 0.75rem;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      min-width: 180px;
-      min-height: 52px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 2px solid transparent;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary-color, #00ff88), #00cc6a);
-      color: #000;
-      font-weight: 700;
-      box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(0, 255, 136, 0.4);
-    }
-    
-    .btn-secondary {
-      background: rgba(0, 255, 136, 0.1);
-      color: var(--primary-color, #00ff88);
-      border: 2px solid var(--primary-color, #00ff88);
-      backdrop-filter: blur(10px);
-    }
-    
-    .btn-secondary:hover {
-      background: var(--primary-color, #00ff88);
-      color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
-    }
-    
-    /* Loading screen critical styles */
-    .loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease;
-    }
-    
-    .loading-screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    
-    .loading-content {
-      text-align: center;
-      color: var(--primary-color, #00ff88);
-    }
-    
-    .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(0, 255, 136, 0.3);
-      border-top: 3px solid var(--primary-color, #00ff88);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 1rem;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    /* Navigation critical styles */
-    .main-navigation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(10px);
-      z-index: 10000;
-      padding: 1rem 0;
-    }
-    
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 2rem;
-    }
-    
-    .nav-logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color, #00ff88);
-      text-decoration: none;
-    }
-    
-    .nav-menu {
-      display: flex;
-      gap: 2rem;
-    }
-    
-    .nav-link {
-      color: var(--text-primary, #fff);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-    
-    .nav-link:hover {
-      color: var(--primary-color, #00ff88);
-    }
-    
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      flex-direction: column;
-      gap: 4px;
-    }
-    
-    .hamburger-line {
-      width: 25px;
-      height: 3px;
-      background: var(--text-primary, #fff);
-      transition: all 0.3s ease;
-    }
-    
-    @media (max-width: 768px) {
-      .hero-section {
-        height: 90vh;
-        min-height: 500px;
-        max-height: 700px;
-      }
-      
-      .hero-content {
-        padding: 2rem 1.5rem;
-        margin: 0 0.5rem;
-        max-width: 90%;
-      }
-      
-      .hero-actions {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-      }
-      
-      .btn {
-        width: 100%;
-        max-width: 280px;
-      }
-      
-      .nav-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
-      }
-      
-      .nav-menu.active {
-        display: flex;
-      }
-      
-      .nav-toggle {
-        display: flex;
-      }
-    }"
-    
-    /* Optimize floating elements performance */
-    .hero-section .floating-elements {
-      opacity: 0.3;
-      pointer-events: none;
-    }
-    
-    .hero-section .hero-visual {
-      opacity: 0.5;
-    }
-    
-    /* Reduced motion support */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-      
-      .loading-spinner {
-        animation: none;
-      }
-    }
-  </style>
-  
   
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -333,8 +37,8 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Abdurakhmonbek Fayzullaev",
-    "jobTitle": "Full Stack Developer & Quantitative Analyst",
-    "description": "Postgraduate student in Actuarial Science and Data Analytics with expertise in quantitative finance and web development",
+    "jobTitle": "Financial & Quantitative Analyst",
+    "description": "Postgraduate student in Actuarial Science and Data Analytics, currently working as Specialist at Apple Inc. with expertise in quantitative finance and actuarial science",
     "url": "https://abdurakhmonbek.com",
     "sameAs": [
       "https://linkedin.com/in/abdurakhmonbek",
@@ -344,28 +48,7 @@
   </script>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Main navigation">
-    <div class="nav-container">
-      <a href="/" class="nav-logo">
-        <span class="logo-text">ABDURAKHMONBEK</span>
-      </a>
-      
-      <div class="nav-menu" id="nav-menu">
-        <a href="/" class="nav-link">Home</a>
-        <a href="about/" class="nav-link">About</a>
-        <a href="skills-experience/" class="nav-link">Skills & Experience</a>
-        <a href="services/" class="nav-link">Services</a>
-        <a href="contact/" class="nav-link">Contact</a>
-      </div>
-      
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-      </button>
-    </div>
-  </nav>
+
 
   <!-- Loading Screen -->
   <div class="loading-screen" id="loading-screen" role="status" aria-live="polite">
@@ -383,45 +66,40 @@
   <main id="main-content" class="main-content">
     <!-- Hero Section -->
     <section class="hero-section">
+      <!-- Subtle Technology Background -->
+      <div class="hero-background">
+        <div class="gradient-overlay"></div>
+      </div>
+      
       <div class="hero-content">
         <div class="name-display" id="name-display">
           <h1 class="hero-title">
             <span class="title-line">ABDURAKHMONBEK</span>
             <span class="title-line">FAYZULLAEV</span>
           </h1>
-          <p class="hero-subtitle">Full Stack Developer & Quantitative Analyst</p>
+          <p class="hero-subtitle">Financial & Quantitative Analyst</p>
           <p class="hero-description">Transforming complex problems into elegant solutions through code and mathematics</p>
         </div>
-
-        <div class="hero-icons" aria-hidden="true">
-          <svg class="hero-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
-          </svg>
-          <svg class="hero-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-          </svg>
-        </div>
-
+        
+        
         <div class="hero-actions">
-          <a href="contact/" class="btn btn-primary">Book a Call</a>
-          <a href="services/" class="btn btn-secondary">View Services</a>
-        </div>
-      </div>
-      
-      <div class="hero-visual" aria-hidden="true">
-        <div class="floating-elements">
-          <div class="floating-element" data-speed="0.5" role="presentation">⚡</div>
-          <div class="floating-element" data-speed="0.8" role="presentation">🔢</div>
-          <div class="floating-element" data-speed="1.2" role="presentation">💻</div>
-          <div class="floating-element" data-speed="0.6" role="presentation">📊</div>
+          <a href="about/" class="btn btn-primary">
+            <span>Learn More</span>
+          </a>
+          <a href="contact/" class="btn btn-secondary">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
+            <span>Get in Touch</span>
+          </a>
         </div>
       </div>
     </section>
 
     <!-- Quick Links Section -->
-    <section class="quick-links">
+    <section class="quick-links" aria-labelledby="quick-links-title">
       <div class="container">
-        <h2 class="section-title">Explore My Work</h2>
+        <h2 id="quick-links-title" class="section-title">Explore My Work</h2>
         <div class="links-grid">
           <a href="skills-experience/" class="quick-link-card">
             <div class="card-icon">🎯</div>
@@ -433,22 +111,22 @@
             <h3>Services</h3>
             <p>What I can do for you</p>
           </a>
-          <a href="about/" class="quick-link-card">
-            <div class="card-icon">👨‍💻</div>
-            <h3>About Me</h3>
-            <p>Learn more about my background</p>
+          <a href="skills-experience/" class="quick-link-card">
+            <div class="card-icon">💼</div>
+            <h3>Portfolio</h3>
+            <p>View my skills and experience</p>
           </a>
         </div>
       </div>
     </section>
 
     <!-- About Preview Section -->
-    <section class="about-preview">
+    <section class="about-preview" aria-labelledby="about-preview-title">
       <div class="container">
         <div class="about-content">
           <div class="about-text">
-            <h2>Who I Am</h2>
-            <p>I'm a postgraduate student in Actuarial Science and Data Analytics with a passion for quantitative finance, mathematical modeling, and intelligent risk-taking. My expertise bridges the gap between abstract mathematical concepts and practical applications in financial decision-making.</p>
+            <h2 id="about-preview-title">Who I Am</h2>
+            <p>I'm a postgraduate student in Actuarial Science and Data Analytics, currently working as a Specialist at Apple Inc. With a passion for quantitative finance, mathematical modeling, and intelligent risk-taking, my expertise bridges the gap between abstract mathematical concepts and practical applications in financial decision-making.</p>
             <a href="about/" class="btn btn-outline">Read More</a>
           </div>
           <div class="about-visual">
@@ -472,104 +150,30 @@
     </section>
   </main>
 
-  <!-- Floating CTA Button -->
-  <div class="floating-cta" id="floating-cta">
-    <a href="contact/" class="btn btn-primary" aria-label="Book a consultation call">
-      📞 Book a Call
-    </a>
-  </div>
-
-  <script>
-    // Mobile navigation toggle
-    document.addEventListener('DOMContentLoaded', function() {
-      const navToggle = document.getElementById('nav-toggle');
-      const navMenu = document.getElementById('nav-menu');
+  <!-- Navigation -->
+  <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="./" class="nav-logo" aria-label="Abdurakhmonbek Fayzullaev - Home">
+        <span class="logo-text">ABDURAKHMONBEK</span>
+      </a>
       
-      if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function() {
-          navMenu.classList.toggle('active');
-          const isExpanded = navMenu.classList.contains('active');
-          navToggle.setAttribute('aria-expanded', isExpanded);
-        });
-        
-        // Close menu when clicking on a link
-        navMenu.addEventListener('click', function(e) {
-          if (e.target.classList.contains('nav-link')) {
-            navMenu.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', 'false');
-          }
-        });
-      }
-    });
-
-    function trackEvent(eventName, eventData = {}) {
-      // gtag('event', eventName, eventData);
-      // plausible(eventName, { props: eventData });
-      console.log('Analytics Event:', eventName, eventData);
-    }
-    
-    trackEvent('page_view', {
-      page_title: document.title,
-      page_location: window.location.href
-    });
-    
-    document.addEventListener('click', function(e) {
-      if (e.target.matches('.btn-primary, .floating-cta a')) {
-        trackEvent('cta_click', {
-          cta_text: e.target.textContent.trim(),
-          cta_location: e.target.closest('section')?.className || 'unknown'
-        });
-      }
-    });
-  </script>
+      <div class="nav-menu" id="nav-menu">
+        <a href="./" class="nav-link">Home</a>
+        <a href="about/" class="nav-link">About</a>
+        <a href="skills-experience/" class="nav-link">Skills & Experience</a>
+        <a href="services/" class="nav-link">Services</a>
+        <a href="contact/" class="nav-link">Contact</a>
+      </div>
+      
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
 
   <!-- Scripts -->
   <script src="js/main.js" defer></script>
-
-  <style>
-    .floating-cta {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 1000;
-      animation: pulse 2s infinite;
-    }
-    
-    .floating-cta .btn {
-      padding: 1rem 1.5rem;
-      border-radius: 50px;
-      box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
-      font-weight: 600;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    @media (max-width: 768px) {
-      .floating-cta {
-        bottom: 1rem;
-        right: 1rem;
-      }
-      
-      .floating-cta .btn {
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
-      }
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      .floating-cta {
-        animation: none;
-      }
-    }
-  </style>
-
 </body>
 </html>
