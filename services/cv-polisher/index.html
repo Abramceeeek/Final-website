@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Polisher - Professional Resume Optimization | Abdurakhmonbek Fayzullaev</title>
+  <meta name="description" content="Transform your resume with AI-powered CV polishing. ATS-friendly formatting, multi-language support, and professional optimization in under 60 seconds.">
+  <meta name="keywords" content="CV Polisher, Resume Optimization, ATS-Friendly CV, Professional Resume, AI Resume Writer">
+  <meta name="author" content="Abdurakhmonbek Fayzullaev">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://abdurakhmonbek.com/services/cv-polisher/">
+  <meta property="og:title" content="CV Polisher - Professional Resume Optimization">
+  <meta property="og:description" content="Transform your resume with AI-powered optimization and professional formatting">
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="../../css/main.css" as="style">
+  <link rel="preload" href="../../js/main.js" as="script">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../css/main.css">
+  <link rel="icon" type="image/png" href="../../assets/favicon.png">
+
+  <style>
+    /* CV Polisher specific styles */
+    .cv-polisher-container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 800px;
+      border: none;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-secondary);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .iframe-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .loading-iframe {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      min-height: 800px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .loading-iframe-content {
+      text-align: center;
+    }
+
+    .loading-iframe-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--border-color);
+      border-top-color: var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .back-to-services {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      transition: color var(--transition-fast);
+    }
+
+    .back-to-services:hover {
+      color: var(--primary-color);
+    }
+
+    .back-to-services svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .page-content-cv {
+      padding: 0;
+      margin-top: 80px;
+    }
+
+    .cv-header-section {
+      background: var(--bg-secondary);
+      padding: 2rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+      .iframe-container {
+        min-height: 600px;
+      }
+
+      .loading-iframe {
+        min-height: 600px;
+      }
+    }
+  </style>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CV Polisher",
+    "applicationCategory": "BusinessApplication",
+    "offers": {
+      "@type": "Offer",
+      "description": "Professional CV polishing and optimization service"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Abdurakhmonbek Fayzullaev"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <a href="../../" class="logo">ABDURAKHMONBEK</a>
+      <ul class="nav-links">
+        <li><a href="../../">Home</a></li>
+        <li><a href="../../about/">About</a></li>
+        <li><a href="../../skills-experience/">Skills & Experience</a></li>
+        <li><a href="../../services/" class="active">Services</a></li>
+        <li><a href="../../contact/">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content" class="page-content-cv">
+    <!-- Header Section -->
+    <div class="cv-header-section">
+      <div class="container">
+        <a href="../" class="back-to-services">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+          Back to Services
+        </a>
+        <h1 class="page-title" style="margin-bottom: 0.5rem;">CV POLISHER</h1>
+        <p class="page-subtitle" style="margin-bottom: 0;">Transform your resume into a professional, ATS-friendly document</p>
+      </div>
+    </div>
+
+    <!-- CV Polisher Application -->
+    <div class="cv-polisher-container">
+      <div class="iframe-container" id="iframe-container">
+        <div class="loading-iframe" id="loading-iframe">
+          <div class="loading-iframe-content">
+            <div class="loading-iframe-spinner"></div>
+            <p style="color: var(--text-secondary);">Loading CV Polisher...</p>
+          </div>
+        </div>
+        <iframe
+          id="cv-polisher-iframe"
+          src="https://cv-polisher.onrender.com"
+          title="CV Polisher Application"
+          sandbox="allow-same-origin allow-scripts allow-forms allow-downloads allow-popups"
+          loading="lazy"
+          style="display: none;"
+        ></iframe>
+      </div>
+    </div>
+  </main>
+
+  <script src="../../js/main.js"></script>
+  <script>
+    // Handle iframe loading
+    const iframe = document.getElementById('cv-polisher-iframe');
+    const loadingDiv = document.getElementById('loading-iframe');
+
+    iframe.addEventListener('load', function() {
+      loadingDiv.style.display = 'none';
+      iframe.style.display = 'block';
+    });
+
+    // Fallback timeout in case iframe doesn't load
+    setTimeout(function() {
+      if (loadingDiv.style.display !== 'none') {
+        loadingDiv.innerHTML = `
+          <div class="loading-iframe-content">
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Having trouble loading the CV Polisher?</p>
+            <a href="https://cv-polisher.onrender.com" target="_blank" class="btn btn-primary">Open in New Tab</a>
+          </div>
+        `;
+      }
+    }, 15000);
+
+    // Handle iframe errors
+    iframe.addEventListener('error', function() {
+      loadingDiv.innerHTML = `
+        <div class="loading-iframe-content">
+          <p style="color: var(--error-color); margin-bottom: 1rem;">Failed to load CV Polisher</p>
+          <a href="https://cv-polisher.onrender.com" target="_blank" class="btn btn-primary">Open in New Tab</a>
+        </div>
+      `;
+      iframe.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

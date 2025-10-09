@@ -11,4 +11,5 @@ Disallow: /pages/
 Allow: /about/
 Allow: /skills-experience/
 Allow: /services/
+Allow: /services/cv-polisher/
 Allow: /contact/
