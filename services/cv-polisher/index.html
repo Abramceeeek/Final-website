@@ -178,6 +178,21 @@
 
     <!-- CV Polisher Application -->
     <div class="cv-polisher-container">
+      <!-- Fallback link for iOS/Safari or if iframe doesn't load -->
+      <div style="text-align: center; padding: 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
+          Having issues with the embedded version?
+        </p>
+        <a
+          href="https://cv-polisher-web.vercel.app/polisher"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary"
+          style="font-size: 0.9rem; padding: 0.5rem 1rem;">
+          Open CV Polisher in New Tab →
+        </a>
+      </div>
+
       <div class="iframe-container" id="iframe-container">
         <div class="loading-iframe" id="loading-iframe">
           <div class="loading-iframe-content">
@@ -191,7 +206,8 @@
           title="CV Polisher Application"
           sandbox="allow-same-origin allow-scripts allow-forms allow-downloads allow-popups"
           loading="lazy"
-          style="display: none;"
+          referrerpolicy="no-referrer-when-downgrade"
+          style="display: none; border: 0; width: 100%; min-height: 1400px;"
         ></iframe>
       </div>
     </div>
@@ -214,7 +230,7 @@
         loadingDiv.innerHTML = `
           <div class="loading-iframe-content">
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">Having trouble loading the CV Polisher?</p>
-            <a href="https://cv-polisher.onrender.com" target="_blank" class="btn btn-primary">Open in New Tab</a>
+            <a href="https://cv-polisher-web.vercel.app/polisher" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open in New Tab</a>
           </div>
         `;
       }
@@ -225,7 +241,7 @@
       loadingDiv.innerHTML = `
         <div class="loading-iframe-content">
           <p style="color: var(--error-color); margin-bottom: 1rem;">Failed to load CV Polisher</p>
-          <a href="https://cv-polisher.onrender.com" target="_blank" class="btn btn-primary">Open in New Tab</a>
+          <a href="https://cv-polisher-web.vercel.app/polisher" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open in New Tab</a>
         </div>
       `;
       iframe.style.display = 'none';
