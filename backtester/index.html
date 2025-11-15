@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trading Strategy Backtester - Abdurakhmonbek Fayzullaev</title>
+  <meta name="description" content="Test your trading strategies on S&P 500 stocks with 10+ years of historical data. Professional backtesting platform by Abdurakhmonbek Fayzullaev">
+  <meta name="keywords" content="Backtesting, Trading Strategies, S&P 500, Quantitative Finance, Algorithmic Trading">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      min-height: 100vh;
+    }
+
+    .backtester-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .backtester-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+    }
+
+    .backtester-header h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .backtester-header p {
+      font-size: 1.25rem;
+      color: #a0a0a0;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .feature-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .feature-card {
+      background: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+    }
+
+    .feature-card svg {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 1rem;
+      color: #10b981;
+    }
+
+    .feature-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      font-size: 0.875rem;
+      color: #9ca3af;
+    }
+
+    .iframe-container {
+      background: #1f2937;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 1px solid #374151;
+      position: relative;
+    }
+
+    .backtester-iframe {
+      width: 100%;
+      height: 90vh;
+      border: none;
+      border-radius: 0.5rem;
+      background: white;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .backtester-iframe.loaded {
+      opacity: 1;
+    }
+
+    .iframe-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      transition: opacity 0.3s;
+    }
+
+    .iframe-loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #374151;
+      border-top-color: #10b981;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .info-banner {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: white;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .info-banner.warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    }
+
+    .info-banner.error {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      color: #10b981;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      transition: all 0.3s;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .back-link:hover {
+      color: #059669;
+      background: rgba(16, 185, 129, 0.2);
+      transform: translateX(-5px);
+    }
+
+    .back-link svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.5rem;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .quick-action-btn {
+      background: #1f2937;
+      border: 1px solid #374151;
+      color: #10b981;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quick-action-btn:hover {
+      background: #10b981;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .quick-action-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .backtester-header h1 {
+        font-size: 2rem;
+      }
+
+      .backtester-header p {
+        font-size: 1rem;
+      }
+
+      .feature-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .backtester-iframe {
+        height: 80vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="main-navigation" class="main-navigation" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="../" class="nav-logo" aria-label="Abdurakhmonbek Fayzullaev - Home">
+        <span class="logo-text">ABDURAKHMONBEK</span>
+      </a>
+
+      <div class="nav-menu" id="nav-menu">
+        <a href="../" class="nav-link">Home</a>
+        <a href="../about/" class="nav-link">About</a>
+        <a href="../skills-experience/" class="nav-link">Skills & Experience</a>
+        <a href="../services/" class="nav-link">Services</a>
+        <a href="../contact/" class="nav-link">Contact</a>
+      </div>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="backtester-container">
+    <a href="../services/" class="back-link">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Back to Services
+    </a>
+
+    <div class="backtester-header">
+      <h1>Trading Strategy Backtester</h1>
+      <p>
+        Test your trading strategies on S&P 500 stocks with 10+ years of historical data.
+        Analyze performance metrics, visualize equity curves, and optimize your algorithms.
+      </p>
+
+      <div class="feature-cards">
+        <div class="feature-card">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          <h3>500+ Stocks</h3>
+          <p>Test across the entire S&P 500 universe with real historical data</p>
+        </div>
+
+        <div class="feature-card">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <h3>Real-Time Streaming</h3>
+          <p>Watch your backtest progress live with per-stock results</p>
+        </div>
+
+        <div class="feature-card">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <h3>Secure Sandbox</h3>
+          <p>Strategy code runs in a secure environment with safety checks</p>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <button class="quick-action-btn" onclick="scrollToBacktester()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Start Testing
+        </button>
+        <button class="quick-action-btn" onclick="checkBackendStatus()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Check Status
+        </button>
+      </div>
+    </div>
+
+    <div class="info-banner" id="status-banner">
+      <div class="status-indicator"></div>
+      <span>
+        <strong>⚡ Live Backtesting Platform</strong> -
+        Connecting to backend server...
+      </span>
+    </div>
+
+    <div class="iframe-container">
+      <div class="iframe-loading" id="iframe-loading">
+        <div class="spinner"></div>
+        <p style="color: #9ca3af; font-size: 1.125rem; font-weight: 500;">Loading backtester...</p>
+      </div>
+      <iframe
+        src="http://localhost:3000/backtest"
+        class="backtester-iframe"
+        id="backtester-iframe"
+        title="Trading Strategy Backtester"
+        allow="clipboard-write"
+        onload="handleIframeLoad()"
+      ></iframe>
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center; color: #a0a0a0; font-size: 0.875rem;">
+      <p>
+        <strong>Note:</strong> Backtest results are hypothetical and do not guarantee future performance.
+        Past performance is not indicative of future returns.
+      </p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/main.js" defer></script>
+  <script>
+    // Handle iframe loading
+    function handleIframeLoad() {
+      const iframe = document.getElementById('backtester-iframe');
+      const loading = document.getElementById('iframe-loading');
+
+      iframe.classList.add('loaded');
+      loading.classList.add('hidden');
+    }
+
+    // Scroll to backtester
+    function scrollToBacktester() {
+      const container = document.querySelector('.iframe-container');
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Check backend status
+    async function checkBackendStatus() {
+      const banner = document.getElementById('status-banner');
+      const statusText = banner.querySelector('span');
+
+      banner.className = 'info-banner';
+      statusText.innerHTML = '<strong>⚡ Checking backend status...</strong>';
+
+      try {
+        const response = await fetch('http://localhost:8000/health', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          banner.classList.remove('error', 'warning');
+          statusText.innerHTML = `<strong>✅ Backend Online</strong> - Ready to run backtests (${data.status})`;
+
+          // Auto-hide success message after 5 seconds
+          setTimeout(() => {
+            banner.style.display = 'none';
+          }, 5000);
+        } else {
+          throw new Error('Backend not responding');
+        }
+      } catch (error) {
+        banner.classList.add('error');
+        statusText.innerHTML = `
+          <strong>❌ Backend Offline</strong> -
+          Please start the backend server on port 8000.
+          <a href="#setup" style="color: white; text-decoration: underline; margin-left: 0.5rem;" onclick="showSetupInstructions()">
+            View setup instructions
+          </a>
+        `;
+      }
+    }
+
+    // Show setup instructions
+    function showSetupInstructions() {
+      alert(`Backend Setup Instructions:
+
+1. Navigate to the backtester backend directory:
+   cd C:\\Users\\HP\\Documents\\GitHub\\backtester\\backend
+
+2. Activate virtual environment (if using):
+   .venv\\Scripts\\activate  (Windows)
+   source .venv/bin/activate  (Mac/Linux)
+
+3. Install dependencies:
+   pip install -r requirements.txt
+
+4. Start the backend server:
+   uvicorn api:app --reload --port 8000
+
+5. Start the frontend (in a new terminal):
+   cd ../frontend
+   npm install
+   npm run dev
+
+6. Refresh this page!`);
+    }
+
+    // Check status on page load
+    window.addEventListener('load', () => {
+      // Wait a moment for everything to settle
+      setTimeout(checkBackendStatus, 1000);
+    });
+
+    // Retry iframe load if it fails
+    setTimeout(() => {
+      const iframe = document.getElementById('backtester-iframe');
+      const loading = document.getElementById('iframe-loading');
+
+      if (!iframe.classList.contains('loaded')) {
+        loading.innerHTML = `
+          <div class="spinner"></div>
+          <p style="color: #9ca3af; font-size: 1.125rem; font-weight: 500; margin-bottom: 1rem;">
+            Still loading... This may take a moment
+          </p>
+          <button class="quick-action-btn" onclick="location.reload()">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 20px; height: 20px;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Reload Page
+          </button>
+        `;
+      }
+    }, 10000); // Show retry button after 10 seconds
+  </script>
+</body>
+</html>
