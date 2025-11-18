@@ -320,11 +320,17 @@
       </div>
 
       <div class="quick-actions">
-        <button class="quick-action-btn" onclick="scrollToBacktester()">
+        <a href="single-stock.html" class="quick-action-btn" style="text-decoration: none;">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-          Start Testing
+          ⚡ Single Stock Backtester (Fast - 5-10 sec)
+        </a>
+        <button class="quick-action-btn" onclick="scrollToBacktester()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          Full Portfolio Backtester
         </button>
         <button class="quick-action-btn" onclick="checkBackendStatus()">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -349,7 +355,7 @@
         <p style="color: #9ca3af; font-size: 1.125rem; font-weight: 500;">Loading backtester...</p>
       </div>
       <iframe
-        src="http://localhost:3000/backtest"
+        src=""
         class="backtester-iframe"
         id="backtester-iframe"
         title="Trading Strategy Backtester"
@@ -366,10 +372,14 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="../js/main.js" defer></script>
+  <script src="config.js"></script>
   <script>
-    // Handle iframe loading
+    window.addEventListener('load', () => {
+      const config = window.BACKTESTER_CONFIG || { FRONTEND_URL: 'http://localhost:3000' };
+      document.getElementById('backtester-iframe').src = `${config.FRONTEND_URL}/backtest`;
+    });
+
     function handleIframeLoad() {
       const iframe = document.getElementById('backtester-iframe');
       const loading = document.getElementById('iframe-loading');
@@ -378,22 +388,21 @@
       loading.classList.add('hidden');
     }
 
-    // Scroll to backtester
     function scrollToBacktester() {
       const container = document.querySelector('.iframe-container');
       container.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // Check backend status
     async function checkBackendStatus() {
       const banner = document.getElementById('status-banner');
       const statusText = banner.querySelector('span');
+      const config = window.BACKTESTER_CONFIG || { API_URL: 'http://localhost:8000' };
 
       banner.className = 'info-banner';
       statusText.innerHTML = '<strong>⚡ Checking backend status...</strong>';
 
       try {
-        const response = await fetch('http://localhost:8000/health', {
+        const response = await fetch(`${config.API_URL}/health`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' }
         });
@@ -422,7 +431,6 @@
       }
     }
 
-    // Show setup instructions
     function showSetupInstructions() {
       alert(`Backend Setup Instructions:
 
@@ -447,13 +455,9 @@
 6. Refresh this page!`);
     }
 
-    // Check status on page load
     window.addEventListener('load', () => {
-      // Wait a moment for everything to settle
       setTimeout(checkBackendStatus, 1000);
     });
-
-    // Retry iframe load if it fails
     setTimeout(() => {
       const iframe = document.getElementById('backtester-iframe');
       const loading = document.getElementById('iframe-loading');
@@ -476,3 +480,4 @@
   </script>
 </body>
 </html>
+
