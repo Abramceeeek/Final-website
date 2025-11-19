@@ -1,5 +1,5 @@
 const BACKTESTER_CONFIG = {
-  API_URL: 'http://localhost:8000',
+  API_URL: 'https://backtester-ukxz.onrender.com',
   FRONTEND_URL: 'http://localhost:3000',
   REQUEST_TIMEOUT: 60000,
   BACKTEST_TIMEOUT: 300000,
