@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Single Stock Backtester - Abdurakhmonbek Fayzullaev</title>
-  <meta name="description" content="Test your trading strategies on any S&P 500 stock. Fast, simple backtesting for small traders.">
+  <title>Full Portfolio Backtester - Abdurakhmonbek Fayzullaev</title>
+  <meta name="description" content="Test your trading strategies across the entire S&P 500. Real-time streaming backtest with portfolio-level metrics.">
   <link rel="stylesheet" href="../css/main.css">
   <link rel="icon" type="image/png" href="../assets/favicon.png">
 
@@ -15,7 +15,7 @@
     }
 
     .backtester-container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 2rem 1rem;
     }
@@ -107,7 +107,7 @@
 
     .code-editor {
       width: 100%;
-      min-height: 350px;
+      min-height: 300px;
       padding: 1rem;
       border-radius: 0.5rem;
       border: 1px solid #374151;
@@ -151,63 +151,101 @@
       transform: none;
     }
 
-    .loading {
-      text-align: center;
-      padding: 3rem;
+    .progress-container {
       background: #1f2937;
-      border-radius: 1rem;
       border: 1px solid #374151;
-      margin-top: 2rem;
-    }
-
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid #374151;
-      border-top-color: #10b981;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 1.5rem;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .loading p {
-      color: #10b981;
-      font-size: 1.125rem;
-      font-weight: 500;
-    }
-
-    .error {
-      padding: 1.5rem;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid #ef4444;
-      border-radius: 0.75rem;
-      color: #fca5a5;
-      margin-top: 2rem;
-    }
-
-    .error h3 {
-      color: #ef4444;
-      margin-bottom: 0.5rem;
-    }
-
-    .results {
-      margin-top: 2rem;
+      border-radius: 1rem;
       padding: 2rem;
-      background: #1f2937;
-      border-radius: 1rem;
-      border: 1px solid #374151;
+      margin-bottom: 2rem;
+      display: none;
     }
 
-    .results h2 {
-      color: white;
-      font-size: 1.75rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
+    .progress-container.active {
+      display: block;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #374151;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+      transition: width 0.3s;
+      width: 0%;
+    }
+
+    .progress-text {
+      color: #10b981;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .stock-results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .stock-result-card {
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .stock-result-card.positive {
+      border-color: #10b981;
+    }
+
+    .stock-result-card.negative {
+      border-color: #ef4444;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
       border-bottom: 2px solid #374151;
+    }
+
+    .tab {
+      padding: 1rem 1.5rem;
+      background: transparent;
+      border: none;
+      color: #9ca3af;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.3s;
+    }
+
+    .tab:hover {
+      color: white;
+    }
+
+    .tab.active {
+      color: #10b981;
+      border-bottom-color: #10b981;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
     }
 
     .metrics-grid {
@@ -218,7 +256,7 @@
     }
 
     .metric-card {
-      background: #111827;
+      background: #1f2937;
       border: 1px solid #374151;
       border-radius: 0.75rem;
       padding: 1.25rem;
@@ -253,56 +291,17 @@
       color: white;
     }
 
-    .trades-section {
+    .results {
       margin-top: 2rem;
+      padding: 2rem;
+      background: #1f2937;
+      border-radius: 1rem;
+      border: 1px solid #374151;
+      display: none;
     }
 
-    .trades-section h3 {
-      color: white;
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-    }
-
-    .trades-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #111827;
-      border-radius: 0.5rem;
-      overflow: hidden;
-    }
-
-    .trades-table thead {
-      background: #0a0a0a;
-    }
-
-    .trades-table th {
-      padding: 1rem;
-      text-align: left;
-      color: #9ca3af;
-      font-weight: 600;
-      font-size: 0.875rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .trades-table td {
-      padding: 1rem;
-      color: white;
-      border-top: 1px solid #374151;
-    }
-
-    .trades-table tbody tr:hover {
-      background: #1a1a1a;
-    }
-
-    .pnl-positive {
-      color: #10b981;
-      font-weight: 600;
-    }
-
-    .pnl-negative {
-      color: #ef4444;
-      font-weight: 600;
+    .results.active {
+      display: block;
     }
 
     .back-link {
@@ -330,21 +329,41 @@
       margin-right: 0.5rem;
     }
 
-    .info-banner {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
-      padding: 1rem 1.5rem;
+    .error {
+      padding: 1.5rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid #ef4444;
       border-radius: 0.75rem;
-      margin-bottom: 2rem;
+      color: #fca5a5;
+      margin-top: 2rem;
+      display: none;
+    }
+
+    .error.active {
+      display: block;
+    }
+
+    .quick-test-toggle {
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      padding: 1rem;
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
-    .info-banner svg {
-      width: 24px;
-      height: 24px;
-      flex-shrink: 0;
+    .quick-test-toggle input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .quick-test-toggle label {
+      color: #93c5fd;
+      font-weight: 600;
+      cursor: pointer;
     }
 
     @media (max-width: 768px) {
@@ -358,15 +377,6 @@
 
       .metrics-grid {
         grid-template-columns: 1fr;
-      }
-
-      .trades-table {
-        font-size: 0.875rem;
-      }
-
-      .trades-table th,
-      .trades-table td {
-        padding: 0.75rem 0.5rem;
       }
     }
   </style>
@@ -404,32 +414,15 @@
     </a>
 
     <div class="backtester-header">
-      <h1>Single Stock Strategy Backtester</h1>
+      <h1>Full Portfolio Backtester</h1>
       <p>
-        Test your Python trading strategies on any S&P 500 stock. Fast, simple, and perfect for learning.
-        Results in 5-10 seconds!
+        Test your trading strategies across the entire S&P 500 universe. Watch real-time progress as each stock is processed.
+        Results typically take 2-3 minutes for all 503 stocks.
       </p>
-    </div>
-
-    <div class="info-banner">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-      <span>
-        <strong>⚡ Fast Backtesting:</strong> Single stock mode completes in 5-10 seconds vs 2-3 minutes for full portfolio.
-        <a href="portfolio.html" style="color: white; text-decoration: underline; margin-left: 0.5rem;">Try Full Portfolio →</a>
-      </span>
     </div>
 
     <form id="backtest-form" class="form-container">
       <div class="form-grid">
-        <div class="form-group">
-          <label for="ticker-select">Select Stock (S&P 500)</label>
-          <select id="ticker-select" required>
-            <option value="">Loading stocks...</option>
-          </select>
-        </div>
-
         <div class="form-group">
           <label for="start-date">Start Date</label>
           <input type="date" id="start-date" value="2020-01-01" required>
@@ -437,20 +430,37 @@
 
         <div class="form-group">
           <label for="end-date">End Date</label>
-          <input type="date" id="end-date" value="2024-01-01" required>
+          <input type="date" id="end-date" required>
         </div>
 
         <div class="form-group">
           <label for="initial-capital">Initial Capital ($)</label>
-          <input type="number" id="initial-capital" value="10000" min="1000" step="1000" required>
+          <input type="number" id="initial-capital" value="100000" min="10000" step="10000" required>
         </div>
+
+        <div class="form-group">
+          <label for="position-size">Position Size (0-1)</label>
+          <input type="number" id="position-size" value="0.1" min="0.01" max="1" step="0.01" required>
+        </div>
+
+        <div class="form-group">
+          <label for="max-positions">Max Positions</label>
+          <input type="number" id="max-positions" value="10" min="1" max="50" required>
+        </div>
+      </div>
+
+      <div class="quick-test-toggle">
+        <input type="checkbox" id="quick-test" />
+        <label for="quick-test">
+          <strong>Quick Test Mode</strong> - Test with 20 stocks (~30 seconds) instead of all 503 stocks (~2-3 minutes)
+        </label>
       </div>
 
       <div class="code-editor-container">
         <label for="strategy-code">Your Strategy Code (Python)</label>
         <textarea id="strategy-code" class="code-editor" required>def strategy(data, state):
     """
-    Simple RSI mean reversion strategy.
+    RSI mean reversion strategy.
     Buy when RSI < 40 (oversold), sell when RSI > 60 (overbought).
     
     Note: pd (pandas) and np (numpy) are pre-loaded, no import needed.
@@ -490,24 +500,41 @@
       </div>
 
       <button type="submit" class="btn-primary" id="run-btn">
-        <span id="btn-text">🚀 Run Backtest</span>
+        <span id="btn-text">🚀 Run Full Portfolio Backtest</span>
       </button>
     </form>
 
-    <div id="loading" class="loading" style="display: none;">
-      <div class="spinner"></div>
-      <p id="loading-text">Running backtest... This usually takes 5-10 seconds for a single stock.</p>
+    <div id="progress" class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-text" id="progress-text">Initializing...</div>
+      <div class="stock-results-grid" id="stock-results"></div>
     </div>
 
-    <div id="error" class="error" style="display: none;">
+    <div id="error" class="error">
       <h3>❌ Error</h3>
       <p id="error-message"></p>
     </div>
 
-    <div id="results" class="results" style="display: none;">
-      <h2>📊 Backtest Results</h2>
-      <div id="metrics" class="metrics-grid"></div>
-      <div id="trades" class="trades-section"></div>
+    <div id="results" class="results">
+      <div class="tabs">
+        <button class="tab active" data-tab="summary">Summary</button>
+        <button class="tab" data-tab="stocks">Stock Results</button>
+        <button class="tab" data-tab="trades">Trades</button>
+      </div>
+
+      <div id="tab-summary" class="tab-content active">
+        <div id="metrics" class="metrics-grid"></div>
+      </div>
+
+      <div id="tab-stocks" class="tab-content">
+        <div id="stock-results-list"></div>
+      </div>
+
+      <div id="tab-trades" class="tab-content">
+        <div id="trades-list"></div>
+      </div>
     </div>
   </div>
 
@@ -515,82 +542,33 @@
   <script src="../js/main.js" defer></script>
   <script src="config.js"></script>
   <script>
-    const API_URL = window.BACKTESTER_CONFIG?.API_URL || 'http://localhost:8000';
-    const POPULAR_STOCKS = window.BACKTESTER_CONFIG?.POPULAR_STOCKS || ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA', 'JPM', 'V', 'JNJ', 'WMT', 'PG', 'MA', 'UNH', 'HD'];
+    const API_URL = window.BACKTESTER_CONFIG?.API_URL || 'https://backtester-ukxz.onrender.com';
 
-    async function loadTickers() {
-      const select = document.getElementById('ticker-select');
-      
-      try {
-        const response = await fetch(`${API_URL}/api/universe/sp500`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch stock list');
-        }
-        
-        const data = await response.json();
-        
-        // Clear loading message
-        select.innerHTML = '<option value="">Select a stock...</option>';
-        
-        // Add popular stocks first
-        const popularOptions = POPULAR_STOCKS
-          .filter(ticker => data.tickers.includes(ticker))
-          .map(ticker => {
-            const option = document.createElement('option');
-            option.value = ticker;
-            option.textContent = `${ticker} (Popular)`;
-            return option;
-          });
-        
-        popularOptions.forEach(option => select.appendChild(option));
-        
-        // Add separator if we have popular stocks
-        if (popularOptions.length > 0) {
-          const separator = document.createElement('option');
-          separator.disabled = true;
-          separator.textContent = '────────── All Stocks ──────────';
-          select.appendChild(separator);
-        }
-        
-        // Add all other stocks
-        const otherStocks = data.tickers
-          .filter(ticker => !POPULAR_STOCKS.includes(ticker))
-          .sort();
-        
-        otherStocks.forEach(ticker => {
-          const option = document.createElement('option');
-          option.value = ticker;
-          option.textContent = ticker;
-          select.appendChild(option);
-        });
-        
-      } catch (error) {
-        console.error('Failed to load tickers:', error);
-        select.innerHTML = `
-          <option value="">⚠️ Error loading stocks</option>
-          <option value="AAPL">AAPL (Apple) - Fallback</option>
-          <option value="MSFT">MSFT (Microsoft) - Fallback</option>
-          <option value="GOOGL">GOOGL (Google) - Fallback</option>
-        `;
-        
-        // Show error banner
-        const errorDiv = document.getElementById('error');
-        errorDiv.style.display = 'block';
-        document.getElementById('error-message').textContent = 
-          `Could not connect to backend. Please ensure the backend server is running on ${API_URL}. ` +
-          `You can still test with the fallback stocks (AAPL, MSFT, GOOGL).`;
-      }
-    }
+    // Set default end date to today
+    const today = new Date();
+    document.getElementById('end-date').value = today.toISOString().split('T')[0];
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.dataset.tab;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`tab-${tabName}`).classList.add('active');
+      });
+    });
 
     document.getElementById('backtest-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      const ticker = document.getElementById('ticker-select').value;
       const startDate = document.getElementById('start-date').value;
       const endDate = document.getElementById('end-date').value;
       const initialCapital = parseFloat(document.getElementById('initial-capital').value);
+      const positionSize = parseFloat(document.getElementById('position-size').value);
+      const maxPositions = parseInt(document.getElementById('max-positions').value);
       const strategyCode = document.getElementById('strategy-code').value;
+      const quickTest = document.getElementById('quick-test').checked;
       
       // Validate dates
       if (new Date(startDate) >= new Date(endDate)) {
@@ -598,63 +576,118 @@
         return;
       }
       
-      // Show loading
-      document.getElementById('loading').style.display = 'block';
-      document.getElementById('error').style.display = 'none';
-      document.getElementById('results').style.display = 'none';
+      // Show progress, hide results
+      document.getElementById('progress').classList.add('active');
+      document.getElementById('error').classList.remove('active');
+      document.getElementById('results').classList.remove('active');
       document.getElementById('run-btn').disabled = true;
       document.getElementById('btn-text').textContent = '⏳ Running...';
-      document.getElementById('loading-text').textContent = `Loading data for ${ticker}...`;
+      document.getElementById('stock-results').innerHTML = '';
+      
+      const config = {
+        strategy_code: strategyCode,
+        universe: 'sp500',
+        start_date: startDate,
+        end_date: endDate,
+        initial_capital: initialCapital,
+        position_size: positionSize,
+        max_positions: maxPositions,
+        commission: 0.001,
+        slippage: 0.0005,
+        interval: '1d',
+        limit_tickers: quickTest ? 20 : null
+      };
       
       try {
-        const config = {
-          strategy_code: strategyCode,
-          universe: 'custom',
-          custom_tickers: [ticker],
-          start_date: startDate,
-          end_date: endDate,
-          initial_capital: initialCapital,
-          position_size: 1.0,
-          max_positions: 1,
-          commission: 0.001,
-          slippage: 0.0005,
-          interval: '1d'
-        };
-        
-        document.getElementById('loading-text').textContent = `Running backtest on ${ticker}...`;
-        
-        const response = await fetch(`${API_URL}/api/backtest`, {
+        const response = await fetch(`${API_URL}/api/backtest/stream`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(config)
         });
         
         if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
         
-        const result = await response.json();
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        const stockResults = [];
         
-        if (!result.success) {
-          throw new Error(result.message || 'Backtest failed');
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+          
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const data = JSON.parse(line.substring(6));
+                
+                if (data.type === 'init') {
+                  updateProgress(0, data.total_tickers, 'Initializing...');
+                } else if (data.type === 'loading') {
+                  updateProgressText(data.message);
+                } else if (data.type === 'progress') {
+                  updateProgress(data.completed, data.total, data.ticker);
+                  if (data.ticker_result && data.ticker_result.success) {
+                    stockResults.push(data.ticker_result);
+                    addStockResult(data.ticker_result);
+                  }
+                } else if (data.type === 'complete') {
+                  displayResults(data.result, stockResults);
+                  document.getElementById('progress').classList.remove('active');
+                  document.getElementById('run-btn').disabled = false;
+                  document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
+                } else if (data.type === 'error') {
+                  throw new Error(data.message);
+                }
+              } catch (e) {
+                console.error('Error parsing stream:', e);
+              }
+            }
+          }
         }
-        
-        // Display results
-        displayResults(result, ticker);
-        
       } catch (error) {
         console.error('Backtest error:', error);
         showError(error.message || 'Failed to run backtest. Please check your strategy code and try again.');
-      } finally {
-        document.getElementById('loading').style.display = 'none';
+        document.getElementById('progress').classList.remove('active');
         document.getElementById('run-btn').disabled = false;
-        document.getElementById('btn-text').textContent = '🚀 Run Backtest';
+        document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
       }
     });
 
-    // Display results
-    function displayResults(result, ticker) {
+    function updateProgress(completed, total, currentTicker) {
+      const percentage = total > 0 ? (completed / total) * 100 : 0;
+      document.getElementById('progress-fill').style.width = `${percentage}%`;
+      const text = currentTicker 
+        ? `Processing ${currentTicker}... (${completed}/${total})`
+        : `Progress: ${completed}/${total}`;
+      document.getElementById('progress-text').textContent = text;
+    }
+
+    function updateProgressText(text) {
+      document.getElementById('progress-text').textContent = text;
+    }
+
+    function addStockResult(result) {
+      const grid = document.getElementById('stock-results');
+      const card = document.createElement('div');
+      card.className = `stock-result-card ${result.total_pnl >= 0 ? 'positive' : 'negative'}`;
+      card.innerHTML = `
+        <div style="font-weight: 600; color: white; margin-bottom: 0.25rem;">${result.ticker}</div>
+        <div style="color: ${result.total_pnl >= 0 ? '#10b981' : '#ef4444'};">
+          ${formatCurrency(result.total_pnl)} (${result.total_pnl_percent.toFixed(1)}%)
+        </div>
+        <div style="color: #9ca3af; font-size: 0.75rem; margin-top: 0.25rem;">
+          ${result.total_trades} trades
+        </div>
+      `;
+      grid.appendChild(card);
+    }
+
+    function displayResults(result, stockResults) {
       const metrics = result.metrics;
       
       const metricsHtml = `
@@ -711,40 +744,55 @@
       
       document.getElementById('metrics').innerHTML = metricsHtml;
       
-      // Display trades
+      // Display stock results
+      if (stockResults.length > 0) {
+        const sortedStocks = [...stockResults].sort((a, b) => (b.total_pnl || 0) - (a.total_pnl || 0));
+        const stocksHtml = `
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+            ${sortedStocks.map(stock => `
+              <div class="metric-card">
+                <div class="metric-label">${stock.ticker}</div>
+                <div class="metric-value ${stock.total_pnl >= 0 ? 'positive' : 'negative'}">
+                  ${formatCurrency(stock.total_pnl)}<br>
+                  <span style="font-size: 0.875rem; font-weight: 400;">${stock.total_pnl_percent.toFixed(2)}%</span>
+                </div>
+                <div style="color: #9ca3af; font-size: 0.75rem; margin-top: 0.5rem;">
+                  ${stock.total_trades} trades | Win Rate: ${(stock.win_rate * 100).toFixed(1)}%
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        document.getElementById('stock-results-list').innerHTML = stocksHtml;
+      }
+      
+      // Display sample trades
       if (result.sample_trades && result.sample_trades.length > 0) {
         const tradesHtml = `
-          <h3>📈 Recent Trades (${result.sample_trades.length} shown)</h3>
           <div style="overflow-x: auto;">
-            <table class="trades-table">
-              <thead>
+            <table style="width: 100%; border-collapse: collapse; background: #111827; border-radius: 0.5rem;">
+              <thead style="background: #0a0a0a;">
                 <tr>
-                  <th>Entry Date</th>
-                  <th>Entry Price</th>
-                  <th>Exit Date</th>
-                  <th>Exit Price</th>
-                  <th style="text-align: right;">P&L</th>
-                  <th style="text-align: right;">P&L %</th>
-                  <th>Exit Reason</th>
+                  <th style="padding: 1rem; text-align: left; color: #9ca3af; font-weight: 600;">Ticker</th>
+                  <th style="padding: 1rem; text-align: left; color: #9ca3af; font-weight: 600;">Entry Date</th>
+                  <th style="padding: 1rem; text-align: left; color: #9ca3af; font-weight: 600;">Entry Price</th>
+                  <th style="padding: 1rem; text-align: left; color: #9ca3af; font-weight: 600;">Exit Date</th>
+                  <th style="padding: 1rem; text-align: right; color: #9ca3af; font-weight: 600;">P&L</th>
+                  <th style="padding: 1rem; text-align: right; color: #9ca3af; font-weight: 600;">P&L %</th>
                 </tr>
               </thead>
               <tbody>
-                ${result.sample_trades.slice(0, 50).map(trade => `
-                  <tr>
-                    <td>${formatDate(trade.entry_date)}</td>
-                    <td>${formatCurrency(trade.entry_price)}</td>
-                    <td>${trade.exit_date ? formatDate(trade.exit_date) : '-'}</td>
-                    <td>${trade.exit_price ? formatCurrency(trade.exit_price) : '-'}</td>
-                    <td style="text-align: right;" class="${trade.pnl >= 0 ? 'pnl-positive' : 'pnl-negative'}">
-                      ${trade.pnl !== null && trade.pnl !== undefined ? formatCurrency(trade.pnl) : '-'}
+                ${result.sample_trades.slice(0, 100).map(trade => `
+                  <tr style="border-top: 1px solid #374151;">
+                    <td style="padding: 1rem; color: white;">${trade.ticker}</td>
+                    <td style="padding: 1rem; color: white;">${formatDate(trade.entry_date)}</td>
+                    <td style="padding: 1rem; color: white;">${formatCurrency(trade.entry_price)}</td>
+                    <td style="padding: 1rem; color: white;">${trade.exit_date ? formatDate(trade.exit_date) : '-'}</td>
+                    <td style="padding: 1rem; text-align: right; color: ${trade.pnl >= 0 ? '#10b981' : '#ef4444'};">
+                      ${formatCurrency(trade.pnl)}
                     </td>
-                    <td style="text-align: right;" class="${trade.pnl_percent >= 0 ? 'pnl-positive' : 'pnl-negative'}">
-                      ${trade.pnl_percent !== null && trade.pnl_percent !== undefined ? trade.pnl_percent.toFixed(2) + '%' : '-'}
-                    </td>
-                    <td>
-                      <span style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: #374151; border-radius: 0.25rem;">
-                        ${trade.exit_reason || 'signal'}
-                      </span>
+                    <td style="padding: 1rem; text-align: right; color: ${trade.pnl_percent >= 0 ? '#10b981' : '#ef4444'};">
+                      ${trade.pnl_percent.toFixed(2)}%
                     </td>
                   </tr>
                 `).join('')}
@@ -752,23 +800,16 @@
             </table>
           </div>
         `;
-        document.getElementById('trades').innerHTML = tradesHtml;
-      } else {
-        document.getElementById('trades').innerHTML = `
-          <h3>📈 Trades</h3>
-          <p style="color: #9ca3af;">No trades were executed for this strategy on ${ticker}.</p>
-        `;
+        document.getElementById('trades-list').innerHTML = tradesHtml;
       }
       
-      document.getElementById('results').style.display = 'block';
-      
-      // Scroll to results
+      document.getElementById('results').classList.add('active');
       document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function showError(message) {
       document.getElementById('error-message').textContent = message;
-      document.getElementById('error').style.display = 'block';
+      document.getElementById('error').classList.add('active');
       document.getElementById('error').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
@@ -787,20 +828,6 @@
       const date = new Date(dateString);
       return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     }
-
-    window.addEventListener('load', () => {
-      loadTickers();
-      
-      // Set end date to today
-      const today = new Date();
-      const todayStr = today.toISOString().split('T')[0];
-      document.getElementById('end-date').value = todayStr;
-      
-      // Set start date to 4 years ago
-      const fourYearsAgo = new Date(today);
-      fourYearsAgo.setFullYear(today.getFullYear() - 4);
-      document.getElementById('start-date').value = fourYearsAgo.toISOString().split('T')[0];
-    });
   </script>
 </body>
 </html>

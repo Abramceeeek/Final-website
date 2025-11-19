@@ -326,12 +326,12 @@
           </svg>
           ⚡ Single Stock Backtester (Fast - 5-10 sec)
         </a>
-        <button class="quick-action-btn" onclick="scrollToBacktester()">
+        <a href="portfolio.html" class="quick-action-btn" style="text-decoration: none;">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
-          Full Portfolio Backtester
-        </button>
+          📊 Full Portfolio Backtester (2-3 min)
+        </a>
         <button class="quick-action-btn" onclick="checkBackendStatus()">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -349,19 +349,37 @@
       </span>
     </div>
 
-    <div class="iframe-container">
-      <div class="iframe-loading" id="iframe-loading">
-        <div class="spinner"></div>
-        <p style="color: #9ca3af; font-size: 1.125rem; font-weight: 500;">Loading backtester...</p>
+    <div class="iframe-container" style="text-align: center; padding: 4rem 2rem;">
+      <div style="color: white; margin-bottom: 2rem;">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #10b981;">Choose Your Backtester</h2>
+        <p style="color: #a0a0a0; font-size: 1.125rem; max-width: 600px; margin: 0 auto;">
+          Select the backtester that best fits your needs. Single stock for quick testing, or full portfolio for comprehensive analysis.
+        </p>
       </div>
-      <iframe
-        src=""
-        class="backtester-iframe"
-        id="backtester-iframe"
-        title="Trading Strategy Backtester"
-        allow="clipboard-write"
-        onload="handleIframeLoad()"
-      ></iframe>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto;">
+        <a href="single-stock.html" style="text-decoration: none;">
+          <div style="background: #1f2937; border: 2px solid #374151; border-radius: 1rem; padding: 2rem; transition: all 0.3s; cursor: pointer;" 
+               onmouseover="this.style.borderColor='#10b981'; this.style.transform='translateY(-5px)'"
+               onmouseout="this.style.borderColor='#374151'; this.style.transform='translateY(0)'">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem;">Single Stock</h3>
+            <p style="color: #9ca3af; margin-bottom: 1rem;">Fast 5-10 second backtests on individual stocks. Perfect for learning and quick strategy validation.</p>
+            <div style="color: #10b981; font-weight: 600;">Try Single Stock →</div>
+          </div>
+        </a>
+        
+        <a href="portfolio.html" style="text-decoration: none;">
+          <div style="background: #1f2937; border: 2px solid #374151; border-radius: 1rem; padding: 2rem; transition: all 0.3s; cursor: pointer;"
+               onmouseover="this.style.borderColor='#10b981'; this.style.transform='translateY(-5px)'"
+               onmouseout="this.style.borderColor='#374151'; this.style.transform='translateY(0)'">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+            <h3 style="color: white; font-size: 1.5rem; margin-bottom: 0.5rem;">Full Portfolio</h3>
+            <p style="color: #9ca3af; margin-bottom: 1rem;">Test across all 503 S&P 500 stocks with real-time streaming. Comprehensive portfolio analysis in 2-3 minutes.</p>
+            <div style="color: #10b981; font-weight: 600;">Try Full Portfolio →</div>
+          </div>
+        </a>
+      </div>
     </div>
 
     <div style="margin-top: 2rem; text-align: center; color: #a0a0a0; font-size: 0.875rem;">
@@ -375,19 +393,6 @@
   <script src="../js/main.js" defer></script>
   <script src="config.js"></script>
   <script>
-    window.addEventListener('load', () => {
-      const config = window.BACKTESTER_CONFIG || { FRONTEND_URL: 'http://localhost:3000' };
-      document.getElementById('backtester-iframe').src = `${config.FRONTEND_URL}/backtest`;
-    });
-
-    function handleIframeLoad() {
-      const iframe = document.getElementById('backtester-iframe');
-      const loading = document.getElementById('iframe-loading');
-
-      iframe.classList.add('loaded');
-      loading.classList.add('hidden');
-    }
-
     function scrollToBacktester() {
       const container = document.querySelector('.iframe-container');
       container.scrollIntoView({ behavior: 'smooth', block: 'start' });
