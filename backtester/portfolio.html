@@ -598,60 +598,134 @@
         limit_tickers: quickTest ? 20 : null
       };
       
+      let streamActive = true;
+      let lastUpdateTime = Date.now();
+      
+      // Set up a keepalive check
+      const keepaliveInterval = setInterval(() => {
+        const timeSinceUpdate = Date.now() - lastUpdateTime;
+        // If no update for 5 minutes, show warning but don't kill connection
+        if (timeSinceUpdate > 300000 && streamActive) {
+          updateProgressText('Still processing... This may take several minutes for all stocks. Please wait.');
+        }
+      }, 30000); // Check every 30 seconds
+      
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 600000); // 10 minute timeout
+        
         const response = await fetch(`${API_URL}/api/backtest/stream`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(config)
+          body: JSON.stringify(config),
+          signal: controller.signal
         });
         
+        clearTimeout(timeoutId);
+        
         if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          const errorText = await response.text().catch(() => 'Unknown error');
+          throw new Error(`HTTP ${response.status}: ${response.statusText}. ${errorText}`);
+        }
+        
+        if (!response.body) {
+          throw new Error('No response body received. The server may be overloaded.');
         }
         
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         const stockResults = [];
+        let buffer = '';
         
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n');
-          
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              try {
-                const data = JSON.parse(line.substring(6));
-                
-                if (data.type === 'init') {
-                  updateProgress(0, data.total_tickers, 'Initializing...');
-                } else if (data.type === 'loading') {
-                  updateProgressText(data.message);
-                } else if (data.type === 'progress') {
-                  updateProgress(data.completed, data.total, data.ticker);
-                  if (data.ticker_result && data.ticker_result.success) {
-                    stockResults.push(data.ticker_result);
-                    addStockResult(data.ticker_result);
+        while (streamActive) {
+          try {
+            const { done, value } = await reader.read();
+            
+            if (done) {
+              // Stream ended normally
+              if (stockResults.length === 0) {
+                throw new Error('Backtest completed but no results received. The strategy may not have generated any trades.');
+              }
+              break;
+            }
+            
+            lastUpdateTime = Date.now();
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || ''; // Keep incomplete line in buffer
+            
+            for (const line of lines) {
+              if (line.trim() === '') continue;
+              
+              if (line.startsWith('data: ')) {
+                try {
+                  const data = JSON.parse(line.substring(6));
+                  
+                  if (data.type === 'init') {
+                    updateProgress(0, data.total_tickers, 'Initializing...');
+                  } else if (data.type === 'loading') {
+                    updateProgressText(data.message);
+                  } else if (data.type === 'progress') {
+                    updateProgress(data.completed, data.total, data.ticker);
+                    if (data.ticker_result && data.ticker_result.success) {
+                      stockResults.push(data.ticker_result);
+                      addStockResult(data.ticker_result);
+                    }
+                  } else if (data.type === 'complete') {
+                    streamActive = false;
+                    clearInterval(keepaliveInterval);
+                    displayResults(data.result, stockResults);
+                    document.getElementById('progress').classList.remove('active');
+                    document.getElementById('run-btn').disabled = false;
+                    document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
+                    return; // Successfully completed
+                  } else if (data.type === 'error') {
+                    streamActive = false;
+                    clearInterval(keepaliveInterval);
+                    throw new Error(data.message);
                   }
-                } else if (data.type === 'complete') {
-                  displayResults(data.result, stockResults);
-                  document.getElementById('progress').classList.remove('active');
-                  document.getElementById('run-btn').disabled = false;
-                  document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
-                } else if (data.type === 'error') {
-                  throw new Error(data.message);
+                } catch (e) {
+                  // Skip malformed JSON lines but log them
+                  if (e instanceof SyntaxError) {
+                    console.warn('Skipping malformed JSON line:', line);
+                  } else {
+                    console.error('Error processing stream data:', e, line);
+                  }
                 }
-              } catch (e) {
-                console.error('Error parsing stream:', e);
               }
             }
+          } catch (readError) {
+            if (readError.name === 'AbortError') {
+              streamActive = false;
+              clearInterval(keepaliveInterval);
+              throw new Error('Request timed out after 10 minutes. Try using Quick Test mode (20 stocks) for faster results.');
+            }
+            throw readError;
           }
         }
+        
+        // If we exit the loop without completion, something went wrong
+        if (streamActive) {
+          throw new Error('Stream ended unexpectedly. Some results may have been received.');
+        }
+        
       } catch (error) {
+        streamActive = false;
+        clearInterval(keepaliveInterval);
         console.error('Backtest error:', error);
-        showError(error.message || 'Failed to run backtest. Please check your strategy code and try again.');
+        
+        let errorMessage = 'Failed to run backtest. ';
+        if (error.message.includes('timeout') || error.message.includes('timed out')) {
+          errorMessage += 'The request took too long. Try using Quick Test mode (20 stocks) for faster results, or check your internet connection.';
+        } else if (error.message.includes('network') || error.message.includes('fetch')) {
+          errorMessage += 'Network error. Please check your internet connection and try again. The backend may still be processing your request.';
+        } else if (error.message.includes('Failed to fetch')) {
+          errorMessage += 'Could not connect to the backend server. Please ensure the server is running and accessible.';
+        } else {
+          errorMessage += error.message || 'Please check your strategy code and try again.';
+        }
+        
+        showError(errorMessage);
         document.getElementById('progress').classList.remove('active');
         document.getElementById('run-btn').disabled = false;
         document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
