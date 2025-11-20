@@ -644,10 +644,18 @@
             const { done, value } = await reader.read();
             
             if (done) {
-              // Stream ended normally
+              // Stream ended normally (should have received 'complete' message, but handle gracefully)
               if (stockResults.length === 0) {
                 throw new Error('Backtest completed but no results received. The strategy may not have generated any trades.');
               }
+              // If we reach here without a 'complete' message, hide progress anyway
+              streamActive = false;
+              clearInterval(keepaliveInterval);
+              updateProgressText('Backtest completed!');
+              setTimeout(() => {
+                document.getElementById('progress').classList.remove('active');
+                updateProgressText('Initializing...');
+              }, 500);
               break;
             }
             
@@ -694,8 +702,15 @@
                 } else if (data.type === 'complete') {
                   streamActive = false;
                   clearInterval(keepaliveInterval);
+                  
+                  // Display results first
                   displayResults(data.result, stockResults);
+                  
+                  // Hide progress indicator immediately
                   document.getElementById('progress').classList.remove('active');
+                  updateProgressText('Initializing...'); // Reset for next run
+                  
+                  // Re-enable button
                   document.getElementById('run-btn').disabled = false;
                   document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
                   return; // Successfully completed
@@ -782,8 +797,14 @@
           });
           partialResult.sample_trades = allTrades.slice(-100); // Last 100 trades
           
+          // Clear progress text and hide progress indicator
+          updateProgressText('Partial results available');
+          setTimeout(() => {
+            document.getElementById('progress').classList.remove('active');
+            updateProgressText('Initializing...'); // Reset for next run
+          }, 500);
+          
           displayResults(partialResult, stockResults);
-          document.getElementById('progress').classList.remove('active');
           document.getElementById('run-btn').disabled = false;
           document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
           
@@ -802,6 +823,13 @@
         clearInterval(keepaliveInterval);
         console.error('Backtest error:', error);
         
+        // Clear progress text and hide progress indicator
+        updateProgressText('Error occurred');
+        setTimeout(() => {
+          document.getElementById('progress').classList.remove('active');
+          updateProgressText('Initializing...'); // Reset for next run
+        }, 500);
+        
         let errorMessage = 'Failed to run backtest. ';
         if (error.message.includes('timeout') || error.message.includes('timed out')) {
           errorMessage += 'The request took too long. Try using Quick Test mode (20 stocks) for faster results, or check your internet connection.';
@@ -814,7 +842,6 @@
         }
         
         showError(errorMessage);
-        document.getElementById('progress').classList.remove('active');
         document.getElementById('run-btn').disabled = false;
         document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
       }
