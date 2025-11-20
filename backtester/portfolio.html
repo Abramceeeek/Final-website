@@ -583,6 +583,7 @@
       document.getElementById('run-btn').disabled = true;
       document.getElementById('btn-text').textContent = '⏳ Running...';
       document.getElementById('stock-results').innerHTML = '';
+      document.getElementById('stock-results-list').innerHTML = ''; // Clear stock results list too
       
       const config = {
         strategy_code: strategyCode,
@@ -635,6 +636,7 @@
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         const stockResults = [];
+        const processedTickers = new Set(); // Track processed tickers to prevent duplicates
         let buffer = '';
         
         while (streamActive) {
@@ -674,8 +676,20 @@
                 } else if (data.type === 'progress') {
                     updateProgress(data.completed, data.total, data.ticker);
                     if (data.ticker_result && data.ticker_result.success) {
-                      stockResults.push(data.ticker_result);
-                      addStockResult(data.ticker_result);
+                      const ticker = data.ticker_result.ticker;
+                      // Deduplication: only add if we haven't seen this ticker before
+                      if (!processedTickers.has(ticker)) {
+                        processedTickers.add(ticker);
+                        stockResults.push(data.ticker_result);
+                        addStockResult(data.ticker_result);
+                      } else {
+                        // Update existing result (in case we get a better/updated result)
+                        const existingIndex = stockResults.findIndex(s => s.ticker === ticker);
+                        if (existingIndex >= 0) {
+                          stockResults[existingIndex] = data.ticker_result;
+                          updateStockResultCard(data.ticker_result);
+                        }
+                      }
                     }
                 } else if (data.type === 'complete') {
                   streamActive = false;
@@ -823,6 +837,7 @@
       const grid = document.getElementById('stock-results');
       const card = document.createElement('div');
       card.className = `stock-result-card ${result.total_pnl >= 0 ? 'positive' : 'negative'}`;
+      card.setAttribute('data-ticker', result.ticker); // Add data attribute for easy lookup
       card.innerHTML = `
         <div style="font-weight: 600; color: white; margin-bottom: 0.25rem;">${result.ticker}</div>
         <div style="color: ${result.total_pnl >= 0 ? '#10b981' : '#ef4444'};">
@@ -833,6 +848,23 @@
         </div>
       `;
       grid.appendChild(card);
+    }
+
+    function updateStockResultCard(result) {
+      const grid = document.getElementById('stock-results');
+      const card = grid.querySelector(`[data-ticker="${result.ticker}"]`);
+      if (card) {
+        card.className = `stock-result-card ${result.total_pnl >= 0 ? 'positive' : 'negative'}`;
+        card.innerHTML = `
+          <div style="font-weight: 600; color: white; margin-bottom: 0.25rem;">${result.ticker}</div>
+          <div style="color: ${result.total_pnl >= 0 ? '#10b981' : '#ef4444'};">
+            ${formatCurrency(result.total_pnl)} (${result.total_pnl_percent.toFixed(1)}%)
+          </div>
+          <div style="color: #9ca3af; font-size: 0.75rem; margin-top: 0.25rem;">
+            ${result.total_trades} trades
+          </div>
+        `;
+      }
     }
 
     function displayResults(result, stockResults) {
