@@ -663,23 +663,37 @@
                   
                   if (data.type === 'init') {
                     updateProgress(0, data.total_tickers, 'Initializing...');
-                  } else if (data.type === 'loading') {
+                } else if (data.type === 'loading') {
+                  updateProgressText(data.message);
+                } else if (data.type === 'heartbeat') {
+                  // Update last activity time but don't change UI
+                  lastUpdateTime = Date.now();
+                  if (data.message) {
                     updateProgressText(data.message);
-                  } else if (data.type === 'progress') {
+                  }
+                } else if (data.type === 'progress') {
                     updateProgress(data.completed, data.total, data.ticker);
                     if (data.ticker_result && data.ticker_result.success) {
                       stockResults.push(data.ticker_result);
                       addStockResult(data.ticker_result);
                     }
-                  } else if (data.type === 'complete') {
-                    streamActive = false;
-                    clearInterval(keepaliveInterval);
-                    displayResults(data.result, stockResults);
-                    document.getElementById('progress').classList.remove('active');
-                    document.getElementById('run-btn').disabled = false;
-                    document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
-                    return; // Successfully completed
-                  } else if (data.type === 'error') {
+                } else if (data.type === 'complete') {
+                  streamActive = false;
+                  clearInterval(keepaliveInterval);
+                  displayResults(data.result, stockResults);
+                  document.getElementById('progress').classList.remove('active');
+                  document.getElementById('run-btn').disabled = false;
+                  document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
+                  return; // Successfully completed
+                } else if (data.type === 'partial') {
+                  // Partial results - update UI but keep stream going
+                  updateProgressText(`Partial results: ${data.completed}/${data.total} stocks completed. Still processing...`);
+                  // Optionally display partial results
+                  if (data.result && data.completed >= 50) {
+                    // Only show partial results if we have a meaningful number
+                    console.log(`Partial results available: ${data.completed} stocks`);
+                  }
+                } else if (data.type === 'error') {
                     streamActive = false;
                     clearInterval(keepaliveInterval);
                     throw new Error(data.message);
@@ -704,9 +718,69 @@
           }
         }
         
-        // If we exit the loop without completion, something went wrong
-        if (streamActive) {
-          throw new Error('Stream ended unexpectedly. Some results may have been received.');
+        // If we exit the loop without completion, check if we have partial results
+        if (streamActive && stockResults.length > 0) {
+          // We have some results but stream ended - try to display what we have
+          console.warn('Stream ended early but we have', stockResults.length, 'stock results');
+          updateProgressText(`Stream ended early. Displaying ${stockResults.length} completed stocks...`);
+          
+          // Calculate metrics from stock results
+          const totalTrades = stockResults.reduce((sum, s) => sum + (s.total_trades || 0), 0);
+          const winningTrades = stockResults.reduce((sum, s) => sum + (s.winning_trades || 0), 0);
+          const losingTrades = stockResults.reduce((sum, s) => sum + (s.losing_trades || 0), 0);
+          const totalPnl = stockResults.reduce((sum, s) => sum + (s.total_pnl || 0), 0);
+          const initialCapital = parseFloat(document.getElementById('initial-capital').value);
+          const finalEquity = initialCapital + totalPnl;
+          const totalReturnPercent = (totalPnl / initialCapital) * 100;
+          const avgWinRate = stockResults.length > 0 
+            ? stockResults.reduce((sum, s) => sum + (s.win_rate || 0), 0) / stockResults.length 
+            : 0;
+          
+          // Create a partial result object
+          const partialResult = {
+            success: true,
+            message: `Partial results: ${stockResults.length} stocks completed before stream ended`,
+            metrics: {
+              total_trades: totalTrades,
+              winning_trades: winningTrades,
+              losing_trades: losingTrades,
+              total_return: totalPnl,
+              total_return_percent: totalReturnPercent,
+              cagr: 0, // Can't calculate without time period
+              sharpe_ratio: 0,
+              max_drawdown_percent: 0,
+              win_rate: avgWinRate,
+              profit_factor: 0,
+              final_equity: finalEquity,
+              initial_capital: initialCapital
+            },
+            sample_trades: []
+          };
+          
+          // Collect all trades from stock results
+          const allTrades = [];
+          stockResults.forEach(stock => {
+            if (stock.trades && Array.isArray(stock.trades)) {
+              stock.trades.forEach(trade => {
+                allTrades.push(trade);
+              });
+            }
+          });
+          partialResult.sample_trades = allTrades.slice(-100); // Last 100 trades
+          
+          displayResults(partialResult, stockResults);
+          document.getElementById('progress').classList.remove('active');
+          document.getElementById('run-btn').disabled = false;
+          document.getElementById('btn-text').textContent = '🚀 Run Full Portfolio Backtest';
+          
+          // Show a warning about partial results (as info banner, not error)
+          const warningBanner = document.createElement('div');
+          warningBanner.style.cssText = 'padding: 1rem; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 0.5rem; color: #fbbf24; margin-top: 1rem;';
+          warningBanner.innerHTML = `⚠️ <strong>Partial Results:</strong> Only ${stockResults.length} stocks completed before timeout. Results shown are from completed stocks only. Try Quick Test mode (20 stocks) for faster, complete results.`;
+          document.getElementById('results').insertBefore(warningBanner, document.getElementById('results').firstChild);
+          return;
+        } else if (streamActive) {
+          throw new Error('Stream ended unexpectedly. No results received. The backend may have timed out or encountered an error.');
         }
         
       } catch (error) {
