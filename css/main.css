@@ -248,7 +248,7 @@ a:hover {
 .main-nav .nav-links {
   display: flex;
   list-style: none;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-sm);
   align-items: center;
 }
 
@@ -259,27 +259,13 @@ a:hover {
 .main-nav .nav-links a {
   color: var(--text-secondary);
   font-weight: 500;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 0.625rem 1rem;
   border-radius: var(--radius-md);
-  transition: all var(--transition-normal);
+  transition: color var(--transition-normal), background-color var(--transition-normal);
   position: relative;
-  overflow: hidden;
   text-decoration: none;
-}
-
-.main-nav .nav-links a::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-  transition: left var(--transition-slow);
-}
-
-.main-nav .nav-links a:hover::before {
-  left: 100%;
+  display: block;
+  white-space: nowrap;
 }
 
 .main-nav .nav-links a:hover,
@@ -313,6 +299,18 @@ a:hover {
 
 .main-nav .hamburger:hover span {
   background: var(--primary-color);
+}
+
+.main-nav .hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.main-nav .hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.main-nav .hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
 }
 
 .main-navigation.scrolled,
@@ -363,34 +361,20 @@ a:hover {
 .nav-menu {
   display: flex;
   list-style: none;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-sm);
   align-items: center;
 }
 
 .nav-menu a {
   color: var(--text-secondary);
   font-weight: 500;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 0.625rem 1rem;
   border-radius: var(--radius-md);
-  transition: all var(--transition-normal);
+  transition: color var(--transition-normal), background-color var(--transition-normal);
   position: relative;
-  overflow: hidden;
   text-decoration: none;
-}
-
-.nav-menu a::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-  transition: left var(--transition-slow);
-}
-
-.nav-menu a:hover::before {
-  left: 100%;
+  display: block;
+  white-space: nowrap;
 }
 
 .nav-menu a:hover,
@@ -402,26 +386,12 @@ a:hover {
 .nav-link {
   color: var(--text-secondary);
   font-weight: 500;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 0.625rem 1rem;
   border-radius: var(--radius-md);
-  transition: all var(--transition-normal);
+  transition: color var(--transition-normal), background-color var(--transition-normal);
   position: relative;
-  overflow: hidden;
-}
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-  transition: left var(--transition-slow);
-}
-
-.nav-link:hover::before {
-  left: 100%;
+  display: block;
+  white-space: nowrap;
 }
 
 .nav-link:hover,

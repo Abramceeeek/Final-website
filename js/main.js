@@ -470,15 +470,18 @@ function setupGlobalEventListeners() {
 // Setup hamburger menu
 function setupHamburgerMenu() {
   console.log('Setting up hamburger menu...');
-  const navToggle = document.querySelector('.nav-toggle');
-  const navMenu = document.querySelector('.nav-menu');
+  
+  // Support both homepage (.nav-toggle / .nav-menu) and inner pages (.hamburger / .nav-links)
+  const navToggle = document.querySelector('.nav-toggle') || document.querySelector('.hamburger');
+  const navMenu = document.querySelector('.nav-menu') || document.querySelector('.nav-links');
   
   if (!navToggle || !navMenu) {
     console.log('Hamburger menu elements not found, skipping setup');
     return;
   }
   
-  navToggle.addEventListener('click', () => {
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
     const isOpen = navToggle.classList.contains('open');
     
     if (isOpen) {
