@@ -40,23 +40,6 @@
     checkReveal();
   }
 
-  /* ---------- 3D hero capability gate ---------- */
-  function hasWebGL() {
-    try {
-      var c = doc.createElement("canvas");
-      return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl")));
-    } catch (e) { return false; }
-  }
-  var canvas = doc.getElementById("hero-canvas");
-  var enable3D = canvas && hasWebGL() && window.innerWidth > 760; // reduced-motion still gets the static single-frame render inside the module
-  if (enable3D) {
-    import("./hero3d.js")
-      .then(function (m) { m.initHero(canvas); })
-      .catch(function () { doc.body.classList.add("no-3d"); });
-  } else {
-    doc.body.classList.add("no-3d");
-  }
-
   /* ---------- floating terrain cards drop in (bulletproof, GSAP-independent) ---------- */
   var drops = [].slice.call(doc.querySelectorAll(".drop-card"));
   if (drops.length) {
