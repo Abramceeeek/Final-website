@@ -1,0 +1,142 @@
+/* ============================================================
+   Inner pages — extends the homepage design system (home.css).
+   ============================================================ */
+@import url("home.css");
+
+/* ---------- active nav link ---------- */
+.nav-links a.active { color: var(--ink); background: var(--glass-fill); }
+
+/* ---------- page hero / header ---------- */
+.page-hero { position: relative; padding: clamp(120px, 16vw, 160px) 0 0.5rem; }
+.page-hero::after {
+  content: ""; position: absolute; inset: -20% 0 auto 0; height: 60%; z-index: -1;
+  background: radial-gradient(50% 100% at 50% 0, rgba(124, 92, 255, 0.16), transparent 70%);
+  filter: blur(10px);
+}
+.page-hero h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.04; letter-spacing: -0.03em; }
+.page-hero .sub { color: var(--ink-muted); font-size: clamp(1rem, 2vw, 1.2rem); margin-top: 0.8rem; max-width: 56ch; }
+
+/* ---------- glass content panel ---------- */
+.panel { padding: clamp(1.4rem, 4vw, 2.4rem); margin-bottom: 1.4rem; }
+.panel > h2 { font-family: var(--f-display); font-weight: 700; font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: -0.01em; margin-bottom: 1rem; }
+.panel > h2 + .sub { color: var(--ink-muted); margin-bottom: 1.2rem; margin-top: -0.4rem; }
+
+/* ---------- prose ---------- */
+.prose p { color: var(--ink-muted); margin-bottom: 1rem; }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose h4 { color: var(--ink); font-family: var(--f-display); font-size: 1.05rem; margin: 0.4rem 0 0.6rem; }
+.prose ul { list-style: none; padding: 0; margin: 0.6rem 0; }
+.prose ul li { position: relative; padding-left: 1.4rem; margin-bottom: 0.5rem; color: var(--ink-muted); }
+.prose ul li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 7px; height: 7px; border-radius: 50%; background: var(--grad); }
+
+/* ---------- grids ---------- */
+.grid { display: grid; gap: 1.1rem; }
+.grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+/* ---------- info / feature card ---------- */
+.info-card { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; transition: transform 0.25s var(--ease), border-color 0.25s, box-shadow 0.25s; }
+.info-card:hover { transform: translateY(-5px); border-color: var(--glass-stroke-strong); box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 230, 138, 0.10); }
+.info-card .icon-badge { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: var(--glass-fill-2); border: 1px solid var(--glass-stroke); color: var(--green); margin-bottom: 0.3rem; }
+.info-card .icon-badge .icon { width: 1.35rem; height: 1.35rem; }
+.info-card h3 { font-family: var(--f-display); font-size: 1.12rem; font-weight: 600; }
+.info-card p { color: var(--ink-muted); font-size: 0.92rem; }
+.info-card .detail { color: var(--ink-muted); font-size: 0.9rem; }
+.info-card .detail p { margin-bottom: 0.4rem; }
+.info-card .detail strong { color: var(--ink); }
+
+/* ---------- tag pills ---------- */
+.tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.4rem; }
+.tag { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.04em; padding: 0.32rem 0.65rem; border-radius: 999px; border: 1px solid var(--glass-stroke); color: var(--ink-muted); background: rgba(255, 255, 255, 0.02); }
+.tag:hover { color: var(--green); border-color: rgba(0, 230, 138, 0.4); }
+
+/* ---------- featured tool card ---------- */
+.tool-card { padding: 1.7rem; }
+.tool-card .icon-badge { width: 52px; height: 52px; }
+.tool-card .benefits { list-style: none; padding: 0; margin: 1rem 0; }
+.tool-card .benefits li { position: relative; padding-left: 1.6rem; margin-bottom: 0.55rem; color: var(--ink-muted); font-size: 0.9rem; }
+.tool-card .benefits li svg { position: absolute; left: 0; top: 0.15em; width: 1.05rem; height: 1.05rem; color: var(--green); }
+.tool-card .benefits li strong { color: var(--ink); }
+
+/* ---------- timeline ---------- */
+.tl { position: relative; padding-left: 1.9rem; }
+.tl::before { content: ""; position: absolute; left: 5px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--green), var(--violet)); opacity: 0.5; border-radius: 2px; }
+.tl-item { position: relative; margin-bottom: 1.2rem; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-dot { position: absolute; left: -1.62rem; top: 1.4rem; width: 13px; height: 13px; border-radius: 50%; background: var(--green); border: 3px solid var(--bg-0); box-shadow: 0 0 12px var(--green); }
+.tl-card { padding: 1.3rem 1.4rem; }
+.tl-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; flex-wrap: wrap; }
+.tl-head h3 { font-family: var(--f-display); font-size: 1.1rem; font-weight: 600; }
+.tl-period { font-family: var(--f-mono); font-size: 0.75rem; color: var(--green); white-space: nowrap; }
+.tl-company { color: var(--cyan); font-weight: 500; font-size: 0.9rem; margin: 0.3rem 0 0.7rem; }
+
+/* ---------- skills ---------- */
+.skill-cat { margin-bottom: 1.6rem; }
+.skill-cat:last-child { margin-bottom: 0; }
+.skill-cat h3 { font-family: var(--f-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 0.9rem; color: var(--ink); }
+.skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+.skill { padding: 0.9rem 1rem; border-radius: 13px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-stroke); }
+.skill-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+.skill-name { font-weight: 600; font-size: 0.92rem; }
+.skill-level { font-family: var(--f-mono); font-size: 0.72rem; color: var(--green); }
+.skill-bar { height: 6px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
+.skill-fill { height: 100%; width: 0; border-radius: 6px; background: var(--grad); transition: width 1s var(--ease); }
+
+/* ---------- pricing ---------- */
+.price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+.price-card { padding: 1.8rem; text-align: center; position: relative; transition: transform 0.25s var(--ease), border-color 0.25s; }
+.price-card:hover { transform: translateY(-5px); border-color: var(--glass-stroke-strong); }
+.price-card.featured { border-color: rgba(0, 230, 138, 0.4); box-shadow: 0 0 0 1px rgba(0, 230, 138, 0.2), 0 24px 60px rgba(0, 0, 0, 0.5); }
+.price-card .tier { font-family: var(--f-display); font-weight: 600; font-size: 1.1rem; margin-bottom: 0.6rem; }
+.price-card .badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--grad); color: #04140d; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.25rem 0.7rem; border-radius: 999px; text-transform: uppercase; }
+.price-card .price { font-family: var(--f-mono); font-size: 2.4rem; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.price-card .price-note { color: var(--ink-faint); font-size: 0.85rem; margin-bottom: 1.2rem; }
+.price-card ul { list-style: none; padding: 0; margin: 0 0 1.4rem; text-align: left; }
+.price-card ul li { position: relative; padding-left: 1.6rem; margin-bottom: 0.5rem; color: var(--ink-muted); font-size: 0.9rem; }
+.price-card ul li svg { position: absolute; left: 0; top: 0.15em; width: 1.05rem; height: 1.05rem; color: var(--green); }
+
+/* ---------- contact ---------- */
+.contact-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.4rem; align-items: start; }
+.field { margin-bottom: 1.1rem; }
+.field label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.45rem; color: var(--ink); }
+.input { width: 100%; padding: 0.8rem 0.9rem; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-stroke); border-radius: 12px; color: var(--ink); font-family: var(--f-body); font-size: 0.95rem; transition: border-color 0.2s, box-shadow 0.2s; }
+.input::placeholder { color: var(--ink-faint); }
+.input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(0, 230, 138, 0.14); }
+textarea.input { resize: vertical; min-height: 130px; }
+.field-error { color: var(--pink); font-size: 0.8rem; margin-top: 0.35rem; display: none; }
+.input.error { border-color: var(--pink); }
+.checkbox-row { display: flex; gap: 0.55rem; align-items: flex-start; font-size: 0.9rem; color: var(--ink-muted); }
+.contact-list { display: grid; gap: 1rem; margin-bottom: 1.4rem; }
+.contact-row { display: flex; gap: 0.9rem; align-items: flex-start; }
+.contact-row .icon-badge { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--glass-fill-2); border: 1px solid var(--glass-stroke); color: var(--green); flex-shrink: 0; }
+.contact-row h3 { font-size: 0.95rem; font-family: var(--f-display); margin-bottom: 0.15rem; }
+.contact-row p { font-size: 0.92rem; color: var(--ink-muted); }
+.contact-row p a:hover { color: var(--green); }
+.contact-row small { color: var(--ink-faint); font-size: 0.8rem; }
+
+/* ---------- faq ---------- */
+.faq { display: grid; gap: 0.8rem; }
+.faq-item { padding: 0; overflow: hidden; }
+.faq-q { width: 100%; text-align: left; background: none; border: 0; color: var(--ink); font-family: var(--f-display); font-size: 1rem; font-weight: 600; padding: 1.1rem 1.3rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.faq-q .icon { transition: transform 0.25s var(--ease); color: var(--green); transform: rotate(45deg); } /* × rotated → looks like + when closed */
+.faq-item.open .faq-q .icon { transform: rotate(0deg); } /* → × when open */
+.faq-a { padding: 0 1.3rem; max-height: 0; overflow: hidden; transition: max-height 0.3s var(--ease), padding 0.3s var(--ease); }
+.faq-item.open .faq-a { padding: 0 1.3rem 1.2rem; max-height: 320px; }
+.faq-a p { color: var(--ink-muted); font-size: 0.92rem; }
+
+/* ---------- success modal ---------- */
+.modal { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 1.5rem; background: rgba(4, 6, 10, 0.7); backdrop-filter: blur(4px); }
+.modal.show { display: flex; }
+.modal-card { max-width: 460px; width: 100%; padding: 1.8rem; }
+.modal-card h3 { font-family: var(--f-display); margin-bottom: 0.8rem; }
+.modal-card p { color: var(--ink-muted); margin-bottom: 0.7rem; }
+.modal-card .btn { margin-top: 0.6rem; }
+
+/* ---------- inner CTA row ---------- */
+.cta-row { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.4rem; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .grid.cols-3, .grid.cols-2, .skill-grid, .price-grid, .contact-grid { grid-template-columns: 1fr; }
+}
